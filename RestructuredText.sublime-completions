@@ -1,0 +1,28 @@
+{
+	"scope": "text.restructuredtext - source - meta.tag, punctuation.definition.tag.begin",
+
+	"completions":
+	[
+		{ "trigger": "title", "contents" : "${1}\n${1/./=/g}" },
+
+		{ "trigger": "e", "contents": "*${1}*" },
+		{ "trigger": "se", "contents": "**${1}**" },
+		{ "trigger": "literal", "contents": "``${1}``" },
+
+		{ "trigger": "list", "contents": "* ${1:text}\n* ${2}\n* ${3}" },
+		{ "trigger": "listn", "contents": "1. ${1}\n2. ${2}\n3. ${3}" },
+		{ "trigger": "listan", "contents": "#. ${1}\n#. ${2}\n#. ${3}" },
+
+		{ "trigger": "def", "contents": "${1:term} : ${2:classifier}\n    ${3:definition}" },
+
+		{ "trigger": "source", "contents": "::\n\n    ${1:text}" },
+		{ "trigger": "table", "contents": "${1/./=/g}\n${1:heading}\n${1/./=/g}\n${2:row}\n${3:row}\n${4:row}\n${1/./=/g}" },
+
+		{ "trigger": "link", "contents": "${1:link_variable_name}_.\n\n.. _${1}: ${2:http://}"	 },
+		{ "trigger": "linki", "contents"	: "`${1:link_variable_name} <${2:http://}>`_."	 }
+
+
+
+
+	]
+}
