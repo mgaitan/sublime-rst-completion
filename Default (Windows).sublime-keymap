@@ -1,9 +1,9 @@
 [
     {
-        "keys": ["ctrl+b"], "command": "strongemphasis",
+        "keys": ["ctrl+b"], "command": "strongemphasis"
     }, {
-        "keys": ["ctrl+i"], "command": "emphasis",
+        "keys": ["ctrl+i"], "command": "emphasis"
     }, {
-        "keys": ["ctrl+k"], "command": "literal",
+        "keys": ["ctrl+k"], "command": "literal"
     }
 ]

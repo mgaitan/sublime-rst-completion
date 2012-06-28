@@ -1,9 +1,9 @@
 [
     {
-        "keys": ["super+b"], "command": "strongemphasis",
+        "keys": ["super+b"], "command": "strongemphasis"
     }, {
-        "keys": ["super+i"], "command": "emphasis",
+        "keys": ["super+i"], "command": "emphasis"
     }, {
-        "keys": ["super+k"], "command": "literal",
+        "keys": ["super+k"], "command": "literal"
     }
 ]
