@@ -22,7 +22,7 @@
 		{ "trigger": "linki", "contents"	: "`${1:link_variable_name} <${2:http://}>`_."	 },
 
 		// see http://docutils.sourceforge.net/docutils/parsers/rst/include/isoamsa.txt		
-		{ "trigger": "->", "contents": " |srarr| $0" }
+		{ "trigger": "->", "contents": " |srarr| $0" },
 		{ "trigger": "=>", "contents": " |xrArr| $0" }
 	]
 }
