@@ -31,6 +31,18 @@
 
         { "trigger": "quote", "contents": ".. epigraph::\n\n   ${1:quote}\n\n   -- ${2:author}\n\n$0" },
 
+        // admonitions
+        { "trigger": "attention", "contents": ".. attention:: ${1:note}\n\n$0" },
+        { "trigger": "caution", "contents": ".. caution:: ${1:note}\n\n$0" },
+        { "trigger": "danger", "contents": ".. danger:: ${1:note}\n\n$0" },
+        { "trigger": "error", "contents": ".. error:: ${1:note}\n\n$0" },
+        { "trigger": "hint", "contents": ".. hint:: ${1:note}\n\n$0" },
+        { "trigger": "important", "contents": ".. important:: ${1:note}\n\n$0" },
+        { "trigger": "note", "contents": ".. note:: ${1:note}\n\n$0" },
+        { "trigger": "tip", "contents": ".. tip:: ${1:note}\n\n$0" },
+        { "trigger": "warning", "contents": ".. warning:: ${1:note}\n\n$0" },
+
+
 		// see http://docutils.sourceforge.net/docutils/parsers/rst/include/isoamsa.txt
 		{ "trigger": "->", "contents": " |srarr| $0" },
 		{ "trigger": "=>", "contents": " |xrArr| $0" }
