@@ -25,8 +25,9 @@
 
 		{ "trigger": "table", "contents": "${1/./=/g}\n${1:heading}\n${1/./=/g}\n${2:row}\n${3:row}\n${4:row}\n${1/./=/g}" },
 
-		{ "trigger": "link", "contents": "${1:link_variable_name}_.\n\n.. _${1}: ${2:http://}"	 },
-		{ "trigger": "linki", "contents"	: "`${1:link_variable_name} <${2:http://}>`_."	 },
+		{ "trigger": "link", "contents": "${1:link_variable_name}_ $0\n\n.. _${1}: ${2:http://}"},
+		{ "trigger": "linki", "contents": "`${1:link_variable_name} <${2:http://}>`_ $0"},
+        { "trigger": "note", "contents": "[${1:#}]_ $0\n\n.. [${1}]: ${2:note}" },
 
 		// see http://docutils.sourceforge.net/docutils/parsers/rst/include/isoamsa.txt		
 		{ "trigger": "->", "contents": " |srarr| $0" },
