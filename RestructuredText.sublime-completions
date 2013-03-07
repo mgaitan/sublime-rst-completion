@@ -29,7 +29,9 @@
 		{ "trigger": "linki", "contents": "`${1:link_variable_name} <${2:http://}>`_ $0"},
         { "trigger": "note", "contents": "[${1:#}]_ $0\n\n.. [${1}]: ${2:note}" },
 
-		// see http://docutils.sourceforge.net/docutils/parsers/rst/include/isoamsa.txt		
+        { "trigger": "quote", "contents": ".. epigraph::\n\n   ${1:quote}\n\n   -- ${2:author}\n\n$0" },
+
+		// see http://docutils.sourceforge.net/docutils/parsers/rst/include/isoamsa.txt
 		{ "trigger": "->", "contents": " |srarr| $0" },
 		{ "trigger": "=>", "contents": " |xrArr| $0" }
 	]
