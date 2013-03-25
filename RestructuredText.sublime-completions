@@ -27,7 +27,7 @@
 
 		{ "trigger": "link", "contents": "${1:link_variable_name}_ $0\n\n.. _${1}: ${2:http://}"},
 		{ "trigger": "linki", "contents": "`${1:link_variable_name} <${2:http://}>`_ $0"},
-        { "trigger": "fn", "contents": "[${1:#}]_ $0\n\n.. [${1}]: ${2:footnote}" },
+        { "trigger": "fn", "contents": "[${2:#}]_ $0\n\n.. [${2}]: ${1:footnote}" },
 
         { "trigger": "quote", "contents": ".. epigraph::\n\n   ${1:quote}\n\n   -- ${2:author}\n\n$0" },
 
