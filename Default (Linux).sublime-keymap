@@ -5,5 +5,9 @@
         "keys": ["ctrl+i"], "command": "emphasis"
     }, {
         "keys": ["ctrl+k"], "command": "literal"
+    }, {
+        "keys": ["ctrl+t"], "command": "table"
+    }, {
+        "keys": ["ctrl+r+t"], "command": "flowtable"
     }
 ]
