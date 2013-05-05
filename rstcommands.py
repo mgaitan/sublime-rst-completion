@@ -1,4 +1,5 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
 
 
 class SurroundCommand(sublime_plugin.TextCommand):
