@@ -5,5 +5,9 @@
         "keys": ["super+i"], "command": "emphasis"
     }, {
         "keys": ["super+k"], "command": "literal"
+    }, {
+        "keys": ["super+shift+t"], "command": "table"
+    }, {
+        "keys": ["super+shift+r+t"], "command": "flowtable"
     }
 ]
