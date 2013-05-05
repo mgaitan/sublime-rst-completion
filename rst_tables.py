@@ -58,6 +58,10 @@ import textwrap
 class BaseTableCommand(sublime_plugin.TextCommand):
 
     def _get_row_text(self, row):
+
+        if row < 0 or row > self.view.rowcol(self.view.size())[0]:
+            raise RuntimeError('Cannot find table bounds.')
+
         point = self.view.text_point(row, 0)
         region = self.view.line(point)
         text = self.view.substr(region)
@@ -66,13 +70,14 @@ class BaseTableCommand(sublime_plugin.TextCommand):
     def get_table_bounds(self):
         """given the cursor position as started point,
            returns the limits and indentation"""
-
         row, col = self.view.rowcol(self.view.sel()[0].begin())
 
         upper = lower = row
+
         try:
             while self._get_row_text(upper - 1).strip():
                 upper -= 1
+
         except Exception as e:
             print e
             pass
