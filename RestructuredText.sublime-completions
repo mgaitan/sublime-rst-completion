@@ -9,7 +9,7 @@
 
 		{ "trigger": "e", "contents": "*${1}*" },
 		{ "trigger": "se", "contents": "**${1}**" },
-		{ "trigger": "literal", "contents": "``${1}``" },
+		{ "trigger": "lit, literal", "contents": "``${1}``" },
 
 		{ "trigger": "list", "contents": "* ${1:text}\n* ${2}\n* ${3}" },
 		{ "trigger": "listn", "contents": "1. ${1}\n2. ${2}\n3. ${3}" },
@@ -27,7 +27,7 @@
 
 		{ "trigger": "link", "contents": "${1:link_variable_name}_ $0\n\n.. _${1}: ${2:http://}"},
 		{ "trigger": "linki", "contents": "`${1:link_variable_name} <${2:http://}>`_ $0"},
-        { "trigger": "fn", "contents": "[${2:#}]_ $0\n\n.. [${2}]: ${1:footnote}" },
+        { "trigger": "fn, cite", "contents": "[${2:#}]_ $0\n\n.. [${2}] ${1:footnote}" },
 
         { "trigger": "quote", "contents": ".. epigraph::\n\n   ${1:quote}\n\n   -- ${2:author}\n\n$0" },
 
