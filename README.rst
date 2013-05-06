@@ -5,10 +5,10 @@ Some convenience snippets and completion hints for Sublime text editor.
 This plugin will hopefully evolve to make Sublime a useful documentation
 toolkit.
 
-Installation
-------------
+Install
+-------
 
-The easiest way to install is via `Sublime Package Control <http://wbond.net/sublime_packages/package_control>`_ .
+The easiest way to install is via `Sublime Package Control <http://wbond.net/sublime_packages/package_control>`_ . Just look for *"Restructured Text (RST) Snippets"*
 
 Otherwise you can:
 
@@ -153,7 +153,7 @@ Dominic Bou-Samra (`dbousamra`_) with contribution of Martín Gaitán (`mgaitan 
 
 .. tip::
 
-    Pull requests are welcome!
+    Pull requests and bug reports are welcome!
 
 
 License
@@ -162,7 +162,6 @@ License
 License: Seriously? It's a text editing plugin.
 
 
-.. _Sublime Text Restructured Text Code Completion (rst):
 .. _.zip: http://github.com/dbousamra/sublime-rst-completion/zipball/master
 .. _dbousamra: http://github.com/dbousamra
 .. _others: https://github.com/dbousamra/sublime-rst-completion/contributors
