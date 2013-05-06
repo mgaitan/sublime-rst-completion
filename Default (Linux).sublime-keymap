@@ -8,6 +8,6 @@
     }, {
         "keys": ["ctrl+t"], "command": "table"
     }, {
-        "keys": ["ctrl+r+t"], "command": "flowtable"
+        "keys": ["ctrl+r"], "command": "flowtable"
     }
 ]
