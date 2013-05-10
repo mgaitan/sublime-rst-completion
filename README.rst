@@ -157,14 +157,17 @@ like this::
   1. Some item
   2. Another|
 
-And press ``enter`` a logical next item is added::
+When press ``enter`` the newline will prepended with a logical next item::
 
   ...
   2. Another
   3. |
 
-If you press ``enter`` again, the item markup is erased keeping the same indent as prev,
-in order to allow multilines items.
+If you press ``enter`` when the item is empty, the markup is erased keeping the same indent as the previous line, in order to allow multilines items. Also note that orderer list works with an alphabetic pattern (``a. b. c. ...`` or 'A. B. C. ...' ).
+
+.. tip::
+
+   The very same feature works for  `line blocks <http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#line-blocks>`_ starting a line with ``|``.
 
 .. note::
 
