@@ -1,5 +1,7 @@
 *.py[cod]
 
+package-metadata.json
+
 #django
 local_settings.py
 
