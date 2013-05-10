@@ -44,7 +44,7 @@ using tab.
 +------------------------+------------------------------------+-----------------------+
 | ``lit`` or ``literal`` | literal text (inline code)         | ``control+k``         |
 +------------------------+------------------------------------+-----------------------+
-| ``list``               | unordered list                     |                       |
+| ``list``               | unordered list                     | see `Smart Lists`_    |
 +------------------------+------------------------------------+-----------------------+
 | ``listn``              | ordered list                       |                       |
 +------------------------+------------------------------------+-----------------------+
@@ -60,7 +60,8 @@ using tab.
 +------------------------+------------------------------------+-----------------------+
 | ``fig``                | figure                             |                       |
 +------------------------+------------------------------------+-----------------------+
-| ``table``              | simple table                       | ``ctrl+t`` see below_ |
+| ``table``              | simple table                       | ``ctrl+t`` see `Magic |
+|                        |                                    | Tables`_              |
 +------------------------+------------------------------------+-----------------------+
 | ``link``               | refered hyperlink                  |                       |
 +------------------------+------------------------------------+-----------------------+
@@ -70,9 +71,12 @@ using tab.
 +------------------------+------------------------------------+-----------------------+
 | ``quote``              | Quotation (``epigraph`` directive) |                       |
 +------------------------+------------------------------------+-----------------------+
-
-
-Also standard admonitions are expanded:
+|                        |                                    |                       |
++------------------------+------------------------------------+-----------------------+
+| Also standard          |                                    |                       |
+| admonitions are        |                                    |                       |
+| expanded:              |                                    |                       |
++------------------------+------------------------------------+-----------------------+
 
 +---------------+
 | shortcut      |
@@ -144,17 +148,38 @@ the structure will be fixed.
 Also you can press ``ctrl+r`` (Linux or Windows) or ``super+shift+r+t`` (Mac)
 to reflows the table keeping the current columns width fixed.
 
+Smart lists
+-----------
 
+Ordered or unordered lists patterns are automatically detected. When you type something
+like this::
+
+  1. Some item
+  2. Another|
+
+And press ``enter`` a logical next item is added::
+
+  ...
+  2. Another
+  3. |
+
+If you press ``enter`` again, the item markup is erased keeping the same indent as prev,
+in order to allow multilines items.
+
+.. note::
+
+   This feature was proudly stolen from `Muchenxuan Tongh's SmartMarkdown
+   <https://github.com/demon386/SmartMarkdown>`_
 
 Authors
 --------
 
-Dominic Bou-Samra (`dbousamra`_) with contribution of Martín Gaitán (`mgaitan <http://github.com/mgaitan>`_) and others_
+Dominic Bou-Samra (`dbousamra`_) with contribution of Martín Gaitán
+(`mgaitan <http://github.com/mgaitan>`_) and others_
 
 .. tip::
 
     Pull requests and bug reports are welcome!
-
 
 License
 -------
