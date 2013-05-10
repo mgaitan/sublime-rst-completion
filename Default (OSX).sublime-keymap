@@ -9,5 +9,10 @@
         "keys": ["super+shift+t"], "command": "table"
     }, {
         "keys": ["super+shift+r+t"], "command": "flowtable"
+    }, { "keys": ["enter"], "command": "smart_list", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*([-+\\**]|\\d+\\.+)\\s+" }
+          ]
     }
 ]
