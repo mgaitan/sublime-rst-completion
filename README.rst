@@ -163,7 +163,10 @@ When press ``enter`` the newline will prepended with a logical next item::
   2. Another
   3. |
 
-If you press ``enter`` when the item is empty, the markup is erased keeping the same indent as the previous line, in order to allow multilines items. Also note that orderer list works with an alphabetic pattern (``a. b. c. ...`` or ``A. B. C. ...``F ).
+If you press ``enter`` when the item is empty, the markup is erased keeping
+the same indent as the previous line, in order to allow multilines items.
+Also note that orderer list works with an alphabetic pattern
+(``a. b. c. ...`` or ``A. B. C. ...``).
 
 .. tip::
 
@@ -183,14 +186,14 @@ You can autocomplete standard headers (over/)underlines with TAB.
 For example try this::
 
 
-    **********|<TAB>
+    **********<TAB>
     A longer main title
     *******
 
 Or this::
 
     A subtitle
-    ---|<TAB>
+    ---<TAB>
 
 
 You'll get::
