@@ -50,72 +50,25 @@ Usage
 """
 
 import re
-from sublime import Region
-import sublime_plugin
 import textwrap
+from helpers import BaseBlockCommand
 
 
-class BaseTableCommand(sublime_plugin.TextCommand):
-
-    def _get_row_text(self, row):
-
-        if row < 0 or row > self.view.rowcol(self.view.size())[0]:
-            raise RuntimeError('Cannot find table bounds.')
-
-        point = self.view.text_point(row, 0)
-        region = self.view.line(point)
-        text = self.view.substr(region)
-        return text
-
-    def get_table_bounds(self):
-        """given the cursor position as started point,
-           returns the limits and indentation"""
-        row, col = self.view.rowcol(self.view.sel()[0].begin())
-
-        upper = lower = row
-
-        try:
-            while self._get_row_text(upper - 1).strip():
-                upper -= 1
-
-        except Exception as e:
-            print e
-            pass
-        else:
-            upper += 1
-
-        try:
-            while self._get_row_text(lower + 1).strip():
-                lower += 1
-        except Exception as e:
-            print e
-            pass
-        else:
-            lower -= 1
-
-        table_region = Region(self.view.text_point(upper - 1, 0),
-                              self.view.text_point(lower + 2, 0))
-        lines = [self.view.substr(region) for region in self.view.lines(table_region)]
-        indent = re.match('^(\s*).*$', self._get_row_text(upper - 1)).group(1)
-        return table_region, lines, indent
-
-
-class TableCommand(BaseTableCommand):
+class TableCommand(BaseBlockCommand):
     def run(self, edit):
 
-        region, lines, indent = self.get_table_bounds()
+        region, lines, indent = self.get_block_bounds()
         table = parse_table(lines)
         result = '\n'.join(draw_table(indent, table))
         result += '\n'
         self.view.replace(edit, region, result)
 
 
-class FlowtableCommand(BaseTableCommand):
+class FlowtableCommand(BaseBlockCommand):
 
     def run(self, edit):
 
-        region, lines, indent = self.get_table_bounds()
-        print 'puto el que lee'
+        region, lines, indent = self.get_block_bounds()
         table = parse_table(lines)
         widths = get_column_widths_from_border_spec(lines)
         result = '\n'.join(draw_table(indent, table, widths))
