@@ -14,5 +14,10 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*([-+\\*\\|*]|(\\d+|[a-y]|[A-Y])\\.+)\\s+" }
           ]
-    }
+    }, { "keys": ["tab"], "command": "smart_header", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+]+" }
+           ]
+   }
 ]
