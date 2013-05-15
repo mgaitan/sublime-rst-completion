@@ -1,13 +1,38 @@
 [
     {
-        "keys": ["super+b"], "command": "strongemphasis"
+        "keys": ["super+b"], "command": "strongemphasis", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["super+i"], "command": "emphasis"
+        "keys": ["super+i"], "command": "emphasis", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["super+k"], "command": "literal"
+        "keys": ["super+k"], "command": "literal", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["super+shift+t"], "command": "table"
+        "keys": ["super+shift+t"], "command": "table", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["super+shift+r+t"], "command": "flowtable"
-    }
+        "keys": ["super+shift+r+t"], "command": "flowtable", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
+    }, { "keys": ["enter"], "command": "smart_list", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*([-+\\*\\|*]|(\\d+|[a-y]|[A-Y])\\.+)\\s+" }
+           ]
+    }, { "keys": ["tab"], "command": "smart_header", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+]+" }
+           ]
+   }
 ]
