@@ -1,14 +1,29 @@
 [
     {
-        "keys": ["ctrl+b"], "command": "strongemphasis"
+        "keys": ["ctrl+b"], "command": "strongemphasis", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["ctrl+i"], "command": "emphasis"
+        "keys": ["ctrl+i"], "command": "emphasis", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["ctrl+k"], "command": "literal"
+        "keys": ["ctrl+k"], "command": "literal", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["ctrl+t"], "command": "table"
+        "keys": ["ctrl+t"], "command": "table", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, {
-        "keys": ["ctrl+r"], "command": "flowtable"
+        "keys": ["ctrl+r"], "command": "flowtable", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
     }, { "keys": ["enter"], "command": "smart_list", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
