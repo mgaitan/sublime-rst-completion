@@ -55,25 +55,28 @@ from helpers import BaseBlockCommand
 
 
 class TableCommand(BaseBlockCommand):
-    def run(self, edit):
-
-        region, lines, indent = self.get_block_bounds()
-        table = parse_table(lines)
-        result = '\n'.join(draw_table(indent, table))
-        result += '\n'
-        self.view.replace(edit, region, result)
 
 
-class FlowtableCommand(BaseBlockCommand):
+    def get_withs(self, lines):
+        return None
 
-    def run(self, edit):
-
-        region, lines, indent = self.get_block_bounds()
-        table = parse_table(lines)
-        widths = get_column_widths_from_border_spec(lines)
+    def get_result(self, indent, table, widths):
         result = '\n'.join(draw_table(indent, table, widths))
         result += '\n'
+        return result
+
+    def run(self, edit):
+        region, lines, indent = self.get_block_bounds()
+        table = parse_table(lines)
+        widths = self.get_withs(lines)
+        result = self.get_result(indent, table, widths)
         self.view.replace(edit, region, result)
+
+
+class FlowtableCommand(TableCommand):
+
+    def get_withs(self, lines):
+        return self.get_withs(lines)
 
 
 def join_rows(rows, sep='\n'):
