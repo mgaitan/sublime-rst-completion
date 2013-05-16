@@ -20,7 +20,7 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["ctrl+r"], "command": "flowtable", "context":
+        "keys": ["ctrl+r"], "command": "merge_cells", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
@@ -34,5 +34,9 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+]+" }
            ]
+   }, { "keys": ["ctrl+shift+down"], "command": "mege_cells", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
    }
 ]

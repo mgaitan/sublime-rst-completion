@@ -79,6 +79,25 @@ class FlowtableCommand(TableCommand):
         return self.get_withs(lines)
 
 
+class MergeCellsCommand(TableCommand):
+    def run(self, edit):
+        region, lines, indent= self.get_block_bounds()
+        raw_table = self.view.substr(region).split('\n')
+        begin = self.view.rowcol(region.begin())[0]
+        end = self.view.rowcol(region.end())[0]
+        cursor = self.get_cursor_position()
+        actual_line = raw_table[cursor[0] - begin]
+        next_sep_line = raw_table[cursor[0] + 1 - begin].strip().split('+')
+
+        col = actual_line[:cursor[1]].count('|')
+        next_sep_line[col] = ' ' * len(next_sep_line[col])
+        raw_table[cursor[0] + 1 - begin] = indent + '+'.join(next_sep_line)
+
+        result = '\n'.join(raw_table)
+        result += '\n'
+        self.view.replace(edit, region, result)
+
+
 def join_rows(rows, sep='\n'):
     """Given a list of rows (a list of lists) this function returns a
     flattened list where each the individual columns of all rows are joined
