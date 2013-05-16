@@ -91,8 +91,12 @@ class MergeCellsCommand(TableCommand):
 
         col = actual_line[:cursor[1]].count('|')
         next_sep_line[col] = ' ' * len(next_sep_line[col])
-        raw_table[cursor[0] + 1 - begin] = indent + '+'.join(next_sep_line)
-
+        new_sep_line = '+'.join(next_sep_line)
+        # replace ghost ``+``
+        new_sep_line = re.sub('(^\+ )|( \+ )|$( \+)',
+                              lambda m: m.group().replace('+', '|'),
+                              new_sep_line)
+        raw_table[cursor[0] + 1 - begin] = indent + new_sep_line
         result = '\n'.join(raw_table)
         result += '\n'
         self.view.replace(edit, region, result)
