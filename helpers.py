@@ -16,11 +16,13 @@ class BaseBlockCommand(sublime_plugin.TextCommand):
         text = self.view.substr(region)
         return text
 
+    def get_cursor_position(self):
+        return self.view.rowcol(self.view.sel()[0].begin())
+
     def get_block_bounds(self):
         """given the cursor position as started point,
            returns the limits and indentation"""
-        row, col = self.view.rowcol(self.view.sel()[0].begin())
-
+        row, col = self.get_cursor_position()
         upper = lower = row
 
         try:
