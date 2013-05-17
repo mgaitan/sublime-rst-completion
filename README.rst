@@ -102,9 +102,7 @@ Also standard admonitions are expanded:
 Magic Tables
 +++++++++++++
 
-There is a particular *magic* expansion for tables, adapted from
-`Vincent Driessen's vim-rst-tables <https://github.com/nvie/vim-rst-tables>`_ :
-
+There is a particular *magic* expansion for tables.
 
 1. Create some kind of table outline, separating column with two or more spaces::
 
@@ -114,12 +112,11 @@ There is a particular *magic* expansion for tables, adapted from
       Column 1  Column 2
       Foo  Put two (or more) spaces as a field separator.
       Bar  Even very very long lines like these are fine, as long as you do not put in line endings here.
-      Qux  This is the last line.
 
       This is paragraph text *after* the table.
 
 2. Put your cursor somewhere in the content to convert as table.
-3. Press ``ctrl+t`` (Linux or Windows) or ``super+shift+t`` (Mac). The output will look
+3. Press ``ctrl+t, enter`` (Linux or Windows) or ``super+shift+t, enter`` (Mac). The output will look
    something like this::
 
       This is paragraph text *before* the table.
@@ -132,17 +129,75 @@ There is a particular *magic* expansion for tables, adapted from
       | Bar      | Even very very long lines like these are fine, as long  |
       |          | as you do not put in line endings here.                 |
       +----------+---------------------------------------------------------+
-      | Qux      | This is the last line.                                  |
-      +----------+---------------------------------------------------------+
 
       This is paragraph text *after* the table.
 
 
-Now change something in the generated table and run ``ctrl+t`` again: Magically,
-the structure will be fixed.
+Now suppose you add some text in a cell::
 
-Also you can press ``ctrl+r`` (Linux or Windows) or ``super+shift+r+t`` (Mac)
-to reflows the table keeping the current columns width fixed.
+      +----------+---------------------------------------------------------+
+      | Column 1 | Column 2                                                |
+      +==========+=========================================================+
+      | Foo is longer now     | Put two (or more) spaces as a field separator.          |
+      +----------+---------------------------------------------------------+
+      | Bar      | Even very very long lines like these are fine, as long  |
+      |          | as you do not put in line endings here.                 |
+      +----------+---------------------------------------------------------+
+
+Press the same trigger: magically, the structure will be fixed::
+
+
+      +-------------------+--------------------------------------------------------+
+      | Column 1          | Column 2                                               |
+      +===================+========================================================+
+      | Foo is longer now | Put two (or more) spaces as a field separator.         |
+      +-------------------+--------------------------------------------------------+
+      | Bar               | Even very very long lines like these are fine, as long |
+      |                   | as you do not put in line endings here.                |
+      +-------------------+--------------------------------------------------------+
+
+
+In addition, if you would like to keep the column width fixed, you could **reflow** the table pressing ``ctrl+t, r`` (``super+shift+t, enter`` in Mac). The result would be this::
+
+
+      +----------+---------------------------------------------------------+
+      | Column 1 | Column 2                                                |
+      +==========+=========================================================+
+      | Foo is   | Put two (or more) spaces as a field separator.          |
+      | longer   |                                                         |
+      | now      |                                                         |
+      +----------+---------------------------------------------------------+
+      | Bar      | Even very very long lines like these are fine, as long  |
+      |          | as you do not put in line endings here.                 |
+      +----------+---------------------------------------------------------+
+
+With the base trigger combination and the cursors you can merge simple cells.
+For example, suppose you have this table::
+
+    +----+----+
+    | h1 | h2 |
+    +====+====+
+    | 11 | 12 |
+    +----+----+
+    | 21 | 22 |
+    +----+----+
+
+Move the cursor to the cell ``12`` and press ``ctrl+t, down``. You'll get this::
+
+    +----+----+
+    | h1 | h2 |
+    +====+====+
+    | 11 | 12 |
+    +----+    |
+    | 21 | 22 |
+    +----+----+
+
+
+.. note::
+
+   The original code of this feature was taken from
+   `Vincent Driessen's vim-rst-tables <https://github.com/nvie/vim-rst-tables>`_ :
+
 
 Smart lists
 -----------
