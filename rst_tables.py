@@ -76,10 +76,25 @@ class TableCommand(BaseBlockCommand):
 class FlowtableCommand(TableCommand):
 
     def get_withs(self, lines):
-        return self.get_withs(lines)
+        return get_column_widths_from_border_spec(lines)
 
 
-class MergeCellsCommand(BaseBlockCommand):
+class MergeCellsDownCommand(BaseBlockCommand):
+    offset = 1
+
+    def run(self, edit):
+        region, lines, indent= self.get_block_bounds()
+        raw_table = self.view.substr(region).split('\n')
+        begin = self.view.rowcol(region.begin())[0]
+        # end = self.view.rowcol(region.end())[0]
+        cursor = self.get_cursor_position()
+        actual_line = raw_table[cursor[0] - begin]
+        col = self.get_column_index(actual_line, cursor[1])
+        sep_line = raw_table[cursor[0] + self.offset - begin]
+        new_sep_line = self.update_sep_line(sep_line, col)
+        raw_table[cursor[0] + self.offset - begin] = indent + new_sep_line
+        result = '\n'.join(raw_table)
+        self.view.replace(edit, region, result)
 
     def get_column_index(self, raw_line, col_position):
         """given the raw line and the column col cursor position,
@@ -96,23 +111,8 @@ class MergeCellsCommand(BaseBlockCommand):
                               new_sep_line)
         return new_sep_line
 
-    def run(self, edit):
-        region, lines, indent= self.get_block_bounds()
-
-        raw_table = self.view.substr(region).split('\n')
-
-        begin = self.view.rowcol(region.begin())[0]
-        # end = self.view.rowcol(region.end())[0]
-
-        cursor = self.get_cursor_position()
-
-        actual_line = raw_table[cursor[0] - begin]
-        col = self.get_column_index(actual_line, cursor[1])
-        sep_line = raw_table[cursor[0] + 1 - begin]
-        new_sep_line = self.update_sep_line(sep_line, col)
-        raw_table[cursor[0] + 1 - begin] = indent + new_sep_line
-        result = '\n'.join(raw_table)
-        self.view.replace(edit, region, result)
+class MergeCellsUpCommand(MergeCellsDownCommand):
+    offset = -1
 
 
 def join_rows(rows, sep='\n'):

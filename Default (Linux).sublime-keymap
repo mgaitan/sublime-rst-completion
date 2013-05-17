@@ -15,14 +15,28 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["ctrl+t"], "command": "table", "context":
+        "keys": ["ctrl+t", "enter"], "command": "table", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["ctrl+r"], "command": "merge_cells", "context":
+        "keys": ["ctrl+t", "r"], "command": "flowtable", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
+    }, {
+        "keys": ["ctrl+t", "down"], "command": "merge_cells_down", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
+
+          ]
+    }, {
+        "keys": ["ctrl+t", "up"], "command": "merge_cells_up", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
+
           ]
     }, { "keys": ["enter"], "command": "smart_list", "context":
           [
