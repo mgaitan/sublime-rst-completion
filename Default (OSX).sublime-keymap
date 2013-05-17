@@ -24,6 +24,20 @@
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
+    }, {
+        "keys": ["ctrl+t", "down"], "command": "merge_cells_down", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
+
+          ]
+    }, {
+        "keys": ["ctrl+t", "up"], "command": "merge_cells_up", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
+
+          ]
     }, { "keys": ["enter"], "command": "smart_list", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
