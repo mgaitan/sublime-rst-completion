@@ -38,6 +38,20 @@
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
 
           ]
+    }, {
+        "keys": ["ctrl+t", "right"], "command": "merge_cells_right", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
+
+          ]
+    }, {
+        "keys": ["ctrl+t", "left"], "command": "merge_cells_left", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*\\|*" }
+
+          ]
     }, { "keys": ["enter"], "command": "smart_list", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
