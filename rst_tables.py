@@ -55,25 +55,95 @@ from helpers import BaseBlockCommand
 
 
 class TableCommand(BaseBlockCommand):
-    def run(self, edit):
-
-        region, lines, indent = self.get_block_bounds()
-        table = parse_table(lines)
-        result = '\n'.join(draw_table(indent, table))
-        result += '\n'
-        self.view.replace(edit, region, result)
 
 
-class FlowtableCommand(BaseBlockCommand):
+    def get_withs(self, lines):
+        return None
 
-    def run(self, edit):
-
-        region, lines, indent = self.get_block_bounds()
-        table = parse_table(lines)
-        widths = get_column_widths_from_border_spec(lines)
+    def get_result(self, indent, table, widths):
         result = '\n'.join(draw_table(indent, table, widths))
         result += '\n'
+        return result
+
+    def run(self, edit):
+        region, lines, indent = self.get_block_bounds()
+        table = parse_table(lines)
+        widths = self.get_withs(lines)
+        result = self.get_result(indent, table, widths)
         self.view.replace(edit, region, result)
+
+
+class FlowtableCommand(TableCommand):
+
+    def get_withs(self, lines):
+        return get_column_widths_from_border_spec(lines)
+
+
+class BaseMergeCellsCommand(BaseBlockCommand):
+
+    def get_column_index(self, raw_line, col_position):
+        """given the raw line and the column col cursor position,
+           return the table column index to merge"""
+        return raw_line[:col_position].count('|')
+
+
+class MergeCellsDownCommand(BaseMergeCellsCommand):
+    offset = 1
+
+    def run(self, edit):
+        region, lines, indent= self.get_block_bounds()
+        raw_table = self.view.substr(region).split('\n')
+        begin = self.view.rowcol(region.begin())[0]
+        # end = self.view.rowcol(region.end())[0]
+        cursor = self.get_cursor_position()
+        actual_line = raw_table[cursor[0] - begin]
+        col = self.get_column_index(actual_line, cursor[1])
+        sep_line = raw_table[cursor[0] + self.offset - begin]
+        new_sep_line = self.update_sep_line(sep_line, col)
+        raw_table[cursor[0] + self.offset - begin] = indent + new_sep_line
+        result = '\n'.join(raw_table)
+        self.view.replace(edit, region, result)
+
+
+    def update_sep_line(self, original, col):
+        segments = original.strip().split('+')
+        segments[col] = ' ' * len(segments[col])
+        new_sep_line = '+'.join(segments)
+        # replace ghost ``+``
+        new_sep_line = re.sub('(^\+ )|( \+ )|( \+)$',
+                              lambda m: m.group().replace('+', '|'),
+                              new_sep_line)
+        return new_sep_line
+
+class MergeCellsUpCommand(MergeCellsDownCommand):
+    offset = -1
+
+
+class MergeCellsRightCommand(BaseMergeCellsCommand):
+    offset = 0
+
+    def run(self, edit):
+        region, lines, indent= self.get_block_bounds()
+        raw_table = self.view.substr(region).split('\n')
+        begin = self.view.rowcol(region.begin())[0]
+        # end = self.view.rowcol(region.end())[0]
+        cursor = self.get_cursor_position()
+        actual_line = raw_table[cursor[0] - begin]
+        col = self.get_column_index(actual_line, cursor[1])
+        separator_indexes = [match.start() for match in
+                             re.finditer(re.escape('|'), actual_line)]
+        actual_line = list(actual_line)
+        actual_line[separator_indexes[col + self.offset]] = ' '
+        actual_line = ''.join(actual_line)
+        raw_table[cursor[0] - begin] = actual_line
+        result = '\n'.join(raw_table)
+        self.view.replace(edit, region, result)
+
+
+class MergeCellsLeftCommand(MergeCellsRightCommand):
+    offset = -1
+
+
 
 
 def join_rows(rows, sep='\n'):
