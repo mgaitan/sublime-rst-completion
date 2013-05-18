@@ -17,9 +17,10 @@ import sublime_plugin
 
 ORDER_LIST_PATTERN = re.compile(r"(\s*[(]?)(\d+|[a-y]|[A-Y])([.)]\s+)\S+")
 UNORDER_LIST_PATTERN = re.compile(r"(\s*[-+\*\|*]+)(\s+)\S+")
-EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+\**]|\d+|[a-y]|[A-Y])([.)])(\s+)$")
+EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+\**]|\d+|[a-y]|[A-Y])\.(\s+)$")
 NONLIST_PATTERN = re.compile(r"(\s*[>|%]+)(\s+)\S?")
-ROMAN_PATTERN = re.compile(r"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", re.IGNORECASE)
+ROMAN_PATTERN = re.compile(r"(\s*[(]?)(M{0,4}CM|CD|D?C{0,3}XC|XL|L?X{0,3}IX|IV|V?I{0,3})([.)]\s+)\S+",
+                           re.IGNORECASE)
 #Define digit mapping
 ROMAN_MAP = (('M', 1000),
              ('CM', 900),
@@ -37,7 +38,6 @@ ROMAN_MAP = (('M', 1000),
 
 #Define exceptions
 class RomanError(Exception): pass
-class OutOfRangeError(RomanError): pass
 class NotIntegerError(RomanError): pass
 class InvalidRomanNumeralError(RomanError): pass
 
@@ -45,10 +45,7 @@ class InvalidRomanNumeralError(RomanError): pass
 def to_roman(n):
     """convert integer to Roman numeral"""
     if not (0 < n < 5000):
-        raise OutOfRangeError("number out of range (must be 1..4999)")
-    if int(n) != n:
-        raise NotIntegerError("decimals can not be converted")
-
+        raise Exception("number out of range (must be 1..4999)")
     result = ""
     for numeral, integer in ROMAN_MAP:
         while n >= integer:
@@ -56,14 +53,8 @@ def to_roman(n):
             n -= integer
     return result
 
-
 def from_roman(s):
     """convert Roman numeral to integer"""
-    if not s:
-        raise InvalidRomanNumeralError('Input can not be blank')
-    if not ROMAN_PATTERN.search(s):
-        raise InvalidRomanNumeralError('Invalid Roman numeral: %s' % s)
-
     result = 0
     index = 0
     for numeral, integer in ROMAN_MAP:
@@ -71,8 +62,6 @@ def from_roman(s):
             result += integer
             index += len(numeral)
     return result
-
-
 
 
 class SmartListCommand(sublime_plugin.TextCommand):
@@ -96,10 +85,24 @@ class SmartListCommand(sublime_plugin.TextCommand):
             if match:
                 insert_text = match.group(1) + \
                               re.sub(r'\S', ' ', str(match.group(2))) + \
-                              match.group(3)
+                              match.group(3) + ' '
                 self.view.erase(edit, before_point_region)
                 self.view.insert(edit, line_region.a, insert_text)
                 break
+
+            match = ROMAN_PATTERN.match(before_point_content)
+            if match:
+                actual = match.group(2)
+                next_num = to_roman(from_roman(actual.upper()) + 1)
+                if actual == actual.lower():
+                    next_num = next_num.lower()
+
+                insert_text = match.group(1) + \
+                              next_num + \
+                              match.group(3)
+                self.view.insert(edit, region.a, "\n" + insert_text)
+                break
+
 
             match = ORDER_LIST_PATTERN.match(before_point_content)
             if match:
