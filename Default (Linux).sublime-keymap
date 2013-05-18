@@ -55,7 +55,8 @@
     }, { "keys": ["enter"], "command": "smart_list", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
-            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*([-+\\*\\|*]|(\\d+|[a-y]|[A-Y])\\.+)\\s+" }
+            { "key": "preceding_text", "operator": "regex_contains",
+              "operand": "^\\s*([-+\\*\\|*]|(\\d+|[a-y]|[A-Y]|[MDCLXVImdclxvi]+)\\.+)\\s+" }
           ]
     }, { "keys": ["tab"], "command": "smart_header", "context":
           [

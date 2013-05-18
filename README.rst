@@ -216,8 +216,8 @@ When press ``enter`` the newline will prepended with a logical next item::
 
 If you press ``enter`` when the item is empty, the markup is erased keeping
 the same indent as the previous line, in order to allow multilines items.
-Also note that orderer list works with an alphabetic pattern
-(``a. b. c. ...`` or ``A. B. C. ...``).
+Also note that orderer list works with an alphabetic pattern or roman numbers pattern
+(``a. b. c. ...``, ``A. B. C. ...``, ``i. ii. iii. iv. ...``, ``X. XI. XII. ...``).
 
 .. tip::
 
