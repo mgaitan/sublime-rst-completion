@@ -5,6 +5,7 @@
 
 # Original from https://github.com/demon386/SmartMarkdown with this patch:
 # https://github.com/vovkkk/SmartMarkdown/commit/bb1bb76179771212c1f21883d9b64d0a299fc98c
+# roman number conversion from Mark Pilgrim's "Dive into Python"
 
 # Modified by Martín Gaitán <gaitan@gmail.com>
 
@@ -16,8 +17,62 @@ import sublime_plugin
 
 ORDER_LIST_PATTERN = re.compile(r"(\s*[(]?)(\d+|[a-y]|[A-Y])([.)]\s+)\S+")
 UNORDER_LIST_PATTERN = re.compile(r"(\s*[-+\*\|*]+)(\s+)\S+")
-EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+\**]|[(]?\d+[.)])(\s+)$")
+EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+\**]|\d+|[a-y]|[A-Y])([.)])(\s+)$")
 NONLIST_PATTERN = re.compile(r"(\s*[>|%]+)(\s+)\S?")
+ROMAN_PATTERN = re.compile(r"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", re.IGNORECASE)
+#Define digit mapping
+ROMAN_MAP = (('M', 1000),
+             ('CM', 900),
+             ('D', 500),
+             ('CD', 400),
+             ('C', 100),
+             ('XC', 90),
+             ('L', 50),
+             ('XL', 40),
+             ('X', 10),
+             ('IX', 9),
+             ('V', 5),
+             ('IV', 4),
+             ('I', 1))
+
+#Define exceptions
+class RomanError(Exception): pass
+class OutOfRangeError(RomanError): pass
+class NotIntegerError(RomanError): pass
+class InvalidRomanNumeralError(RomanError): pass
+
+
+def to_roman(n):
+    """convert integer to Roman numeral"""
+    if not (0 < n < 5000):
+        raise OutOfRangeError("number out of range (must be 1..4999)")
+    if int(n) != n:
+        raise NotIntegerError("decimals can not be converted")
+
+    result = ""
+    for numeral, integer in ROMAN_MAP:
+        while n >= integer:
+            result += numeral
+            n -= integer
+    return result
+
+
+def from_roman(s):
+    """convert Roman numeral to integer"""
+    if not s:
+        raise InvalidRomanNumeralError('Input can not be blank')
+    if not ROMAN_PATTERN.search(s):
+        raise InvalidRomanNumeralError('Invalid Roman numeral: %s' % s)
+
+    result = 0
+    index = 0
+    for numeral, integer in ROMAN_MAP:
+        while s[index:index + len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    return result
+
+
 
 
 class SmartListCommand(sublime_plugin.TextCommand):
