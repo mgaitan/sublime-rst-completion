@@ -279,7 +279,7 @@ After write the note you can go back to the reference with ``shift+up``. Also, i
 the cursor is over a reference (i.e: around something like ``[XX]_``) you can jump to its
 definition with ``shift+down`` [1]_.
 
-This feature is based on the code by `J. Nicholas Geist <https://github.com/jngeist>
+This feature is based on the code by `J. Nicholas Geist <https://github.com/jngeist>`_
 for `MarkdownEditing <https://github.com/ttscoff/MarkdownEditing>`_
 
 Authors
