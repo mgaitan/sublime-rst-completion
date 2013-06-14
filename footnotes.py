@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sublime
 import sublime_plugin
 import re
@@ -8,12 +10,16 @@ REFERENCE_REGEX = r'\[(\d+)\]\_'
 DEFINITION_REGEX = r"^\.\.\s\[(\d+)\]"
 
 
+def get_id(txt):
+    return re.findall(r'\d+', txt)[0]
+
+
 def get_footnote_references(view):
     ids = {}
     for ref in view.get_regions(REFERENCE_KEY):
         view.substr(view.line(ref))
         if not re.match(DEFINITION_REGEX, view.substr(view.line(ref))):
-            id = re.findall(r'\d+', view.substr(ref))[0]
+            id = get_id(view.substr(ref))
             if id in ids:
                 ids[id].append(ref)
             else:
@@ -24,7 +30,7 @@ def get_footnote_references(view):
 def get_footnote_definition_markers(view):
     ids = {}
     for defn in view.get_regions(DEFINITION_KEY):
-        id = view.substr(defn).strip()[4:-2]
+        id = get_id(view.substr(defn))
         ids[id] = defn
     return ids
 
@@ -89,8 +95,8 @@ class MagicFootnotesCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         if (is_footnote_definition(self.view)):
             self.view.run_command('go_to_footnote_reference')
-        # elif (is_footnote_reference(self.view)):
-        #    self.view.run_command('go_to_footnote_definition')
+        elif (is_footnote_reference(self.view)):
+            self.view.run_command('go_to_footnote_definition')
         else:
             self.view.run_command('insert_footnote')
 
@@ -141,6 +147,39 @@ class GoToFootnoteReferenceCommand(sublime_plugin.TextCommand):
             point = sublime.Region(note.end(), note.end())
             self.view.sel().add(point)
             self.view.show(note)
+
+    def is_enabled(self):
+        return self.view.sel()
+
+
+class GoToFootnoteDefinitionCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        defs = get_footnote_definition_markers(self.view)
+        regions = self.view.get_regions(REFERENCE_KEY)
+
+        sel = self.view.sel()
+        if len(sel) == 1:
+            target = None
+            selreg = sel[0]
+
+            for region in regions:
+                # cursor beetwen the brackects
+                #  ·[X]·_
+                if selreg.intersects(region):
+                    target = self.view.substr(region)[1:-2]
+            if not target:
+                # cursor is just after the underscore: [X]_·
+                try:
+                    a = self.view.find(REFERENCE_REGEX, sel[0].end() - 4)
+                    target = self.view.substr(a)[1:-2]
+                except:
+                    pass
+            if target:
+                self.view.sel().clear()
+                point = defs[target].end() + 1
+                ref = sublime.Region(point, point)
+                self.view.sel().add(ref)
+                self.view.show(defs[target])
 
     def is_enabled(self):
         return self.view.sel()
