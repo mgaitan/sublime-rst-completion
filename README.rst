@@ -33,9 +33,9 @@ using tab.
 | shortcut               | result                             | key binding              |
 +========================+====================================+==========================+
 | ``h1``                 | Header level 1                     | see `Header completion`_ |
-+------------------------+------------------------------------+                          +
++------------------------+------------------------------------+--------------------------+
 | ``h2``                 | Header level 2                     |                          |
-+------------------------+------------------------------------+                          +
++------------------------+------------------------------------+--------------------------+
 | ``h3``                 | Header level 3                     |                          |
 +------------------------+------------------------------------+--------------------------+
 | ``e``                  | emphasis                           | ``ctrl+i``               |
@@ -45,9 +45,9 @@ using tab.
 | ``lit`` or ``literal`` | literal text (inline code)         | ``control+k``            |
 +------------------------+------------------------------------+--------------------------+
 | ``list``               | unordered list                     | see `Smart Lists`_       |
-+------------------------+------------------------------------+                          +
++------------------------+------------------------------------+--------------------------+
 | ``listn``              | ordered list                       |                          |
-+------------------------+------------------------------------+                          +
++------------------------+------------------------------------+--------------------------+
 | ``listan``             | auto ordered list                  |                          |
 +------------------------+------------------------------------+--------------------------+
 | ``def``                | term definition                    |                          |
@@ -67,7 +67,8 @@ using tab.
 +------------------------+------------------------------------+--------------------------+
 | ``linki``              | embeded hyperlink                  |                          |
 +------------------------+------------------------------------+--------------------------+
-| ``fn`` or ``cite``     | autonumbered footnote or cite      |                          |
+| ``fn`` or ``cite``     | autonumbered footnote or cite      | ``alt+shift+f`` see      |
+|                        |                                    | `Magic Footnotes`_       |
 +------------------------+------------------------------------+--------------------------+
 | ``quote``              | Quotation (``epigraph`` directive) |                          |
 +------------------------+------------------------------------+--------------------------+
@@ -259,12 +260,34 @@ You'll get::
 
 respectively.
 
+Magic Footnotes
+---------------
+
+This is the smarter way to add footnotes, grouping them (and keepping count)
+in a common region at the bottom of the document.
+
+When you want to add a new note, press ``alt+shift+f`` (``super+shift+f`` in Mac).
+This will happen:
+
+-  A new ``n+1`` (where ``n`` is the current footnotes count) note reference
+   will be added in the current cursor position
+-  The corresponding reference definition will be added
+   at the bottom of the *footnotes region*
+-  The cursor will be moved to write the note
+
+After write the note you can go back to the reference with ``shift+up``. Also, if
+the cursor is over a reference (i.e: around something like``[XX]_``) you can jump to its
+definition with ``shift+down`` [1]_.
+
+This feature is based on the code by `J. Nicholas Geist <https://github.com/jngeist>
+for `MarkdownEditing <https://github.com/ttscoff/MarkdownEditing>`_
 
 Authors
 --------
 
-Dominic Bou-Samra (`dbousamra`_) with the active contribution of Martín Gaitán
-(`mgaitan <http://github.com/mgaitan>`_) and others_
+- Most features added by Martín Gaitán (`mgaitan <http://github.com/mgaitan>`_)
+- Original idea by Dominic Bou-Samra (`dbousamra`_)
+- An few gentle contributors_
 
 .. tip::
 
@@ -278,4 +301,7 @@ License: Seriously? It's a text editing plugin.
 
 .. _.zip: http://github.com/dbousamra/sublime-rst-completion/zipball/master
 .. _dbousamra: http://github.com/dbousamra
-.. _others: https://github.com/dbousamra/sublime-rst-completion/contributors
+.. _contributors: https://github.com/dbousamra/sublime-rst-completion/contributors
+
+.. [1]  in fact, you can also jump forward and back between notes with
+        the general ``alt+shift+f``
