@@ -85,6 +85,20 @@ class Footnotes(sublime_plugin.EventListener):
         self.update_footnote_data(view)
 
 
+class MagicFootnotesCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        if (is_footnote_definition(self.view)):
+            self.view.run_command('go_to_footnote_reference')
+        # elif (is_footnote_reference(self.view)):
+        #    self.view.run_command('go_to_footnote_definition')
+        else:
+            self.view.run_command('insert_footnote')
+
+    def is_enabled(self):
+        return self.view.sel()
+
+
+
 class InsertFootnoteCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         edit = self.view.begin_edit()
@@ -99,6 +113,34 @@ class InsertFootnoteCommand(sublime_plugin.TextCommand):
         self.view.sel().clear()
         self.view.sel().add(sublime.Region(self.view.size()))
         self.view.end_edit(edit)
+
+    def is_enabled(self):
+        return self.view.sel()
+
+
+class MarkFootnotes(sublime_plugin.EventListener):
+    def update_footnote_data(self, view):
+        view.add_regions(REFERENCE_KEY, view.find_all(REFERENCE_REGEX), '', 'cross', sublime.HIDDEN)
+        view.add_regions(DEFINITION_KEY, view.find_all(DEFINITION_REGEX), '', 'cross', sublime.HIDDEN)
+
+    def on_modified(self, view):
+        self.update_footnote_data(view)
+
+    def on_load(self, view):
+        self.update_footnote_data(view)
+
+
+class GoToFootnoteReferenceCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        refs = get_footnote_references(self.view)
+        match = is_footnote_definition(self.view)
+        if match:
+            target = match.groups()[0]
+            self.view.sel().clear()
+            note = refs[target][0]
+            point = sublime.Region(note.end(), note.end())
+            self.view.sel().add(point)
+            self.view.show(note)
 
     def is_enabled(self):
         return self.view.sel()

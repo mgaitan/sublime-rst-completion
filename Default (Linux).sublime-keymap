@@ -64,7 +64,7 @@
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+]+" }
            ]
    },
-    { "keys": ["alt+shift+6"], "command": "insert_footnote", "context":
+    { "keys": ["alt+shift+6"], "command": "magic_footnotes", "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
               "match_all": true }
