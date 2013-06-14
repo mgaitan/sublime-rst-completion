@@ -119,6 +119,7 @@ class InsertFootnoteCommand(sublime_plugin.TextCommand):
         self.view.sel().clear()
         self.view.sel().add(sublime.Region(self.view.size()))
         self.view.end_edit(edit)
+        self.view.show(self.view.size())
 
     def is_enabled(self):
         return self.view.sel()
