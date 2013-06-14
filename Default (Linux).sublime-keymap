@@ -64,10 +64,28 @@
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+]+" }
            ]
    },
-    { "keys": ["alt+shift+6"], "command": "magic_footnotes", "context":
+    { "keys": ["alt+shift+f"], "command": "magic_footnotes", "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
               "match_all": true }
         ]
+    }, { "keys": ["shift+up"], "command": "go_to_footnote_reference", "context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
+              "match_all": true },
+             { "key": "preceding_text", "operator": "regex_contains",
+               "operand": "^\\.\\. \\[\\d+\\]" }
+
+        ]
+    }, { "keys": ["shift+down"], "command": "go_to_footnote_definition", "context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
+              "match_all": true },
+             { "key": "preceding_text", "operator": "regex_contains",
+               "operand": ".*\\[\\d+\\]_" }
+
+        ]
     }
+
+
 ]
