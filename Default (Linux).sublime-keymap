@@ -85,7 +85,8 @@
                "operand": ".*\\[\\d+\\]_" }
 
         ]
-    },{"keys": ["shift+alt+p"], "command": "render_rst", "context":
+    },
+    {"keys": ["ctrl+shift+r"], "command": "render_rst", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
