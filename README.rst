@@ -1,9 +1,10 @@
 Sublime Text Restructured Text Code Completion (rst)
 =======================================================
 
-Some convenience snippets and completion hints for Sublime text editor.
-This plugin will hopefully evolve to make Sublime a useful documentation
-toolkit.
+A group of snippets and commands to facilitate writing restructuredText
+with Sublime text editor. This plugin will hopefully evolve to make
+Sublime a useful documentation toolkit.
+
 
 Install
 -------
@@ -17,15 +18,23 @@ Otherwise you can:
 
       git clone git@github.com:dbousamra/sublime-rst-completion.git
 
-or
-
-- Download the `.zip`_ file and unzip it into your ST2 packages
+- Or download the `.zip`_ file and unzip it into your ST2 packages
   directory.
+
+Optionally, to use the `preview rendering`_ feature, you need to install at least one of
+Pandoc_, docutils_ or rst2pdf_ and they should be accesibles in your ``PATH``.
+In debian/ubuntu you can install them via ``apt-get``::
+
+    $ sudo apt-get install pandoc docutils rst2pdf
+
+.. _Pandoc: http://johnmacfarlane.net/pandoc/
+.. _rst2pdf: http://rst2pdf.ralsina.com.ar/
+.. _docutils: http://docutils.sourceforge.net/
 
 Usage
 -----
 
-Most features work as tab-triggered shortcuts: type the shortcut and press ``<TAB>`` to
+Simple snippets work as tab-triggered shortcuts: type the shortcut and press ``<TAB>`` to
 replace it with the snippet. If the snippet has placeholders, you can jump between them
 using tab.
 
@@ -98,12 +107,34 @@ Also standard admonitions are expanded:
 +---------------+
 
 
-.. _below:
+.. _preview rendering:
+
+Render preview
+---------------
+
+You can preview your document in different formats converted with different tools
+pressing ``ctrl+shift+r``.
+
+The *Quick Window* will offer the format and tool and the result will be automatically open
+after the conversion.
+
+By the moment, it can use Pandoc_, rst2pdf_, or ``rst2*.py`` tools (included with
+docutils_) to produce ``html``, ``pdf``, ``odt`` or ``docx`` output formats.
+
+Each time you select a ``format + tool`` option, it turns the default the following times.
+
+.. note::
+
+    The original code is from the `SublimePandoc <https://github.com/jclement/SublimePandoc>`_
+    project.
+
+
+.. _tables:
 
 Magic Tables
-+++++++++++++
+------------
 
-There is a particular *magic* expansion for tables.
+There is a particular *magic* expansion for tables. Here is how it works:
 
 1. Create some kind of table outline, separating column with two or more spaces::
 
