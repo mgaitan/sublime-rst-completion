@@ -91,25 +91,25 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     },
-     { "keys": ["ctrl+.", "down"], "command": "headline_move",
+     { "keys": ["ctrl+down"], "command": "headline_move",
       "args": {"forward": true, "same_level": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+.", "ctrl+down"], "command": "headline_move",
+    { "keys": ["ctrl+shift+down"], "command": "headline_move",
       "args": {"forward": true, "same_level": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+.", "up"], "command": "headline_move",
+    { "keys": ["ctrl+up"], "command": "headline_move",
       "args": {"forward": false, "same_level": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+.", "ctrl+up"], "command": "headline_move",
+    { "keys": ["ctrl+shift+up"], "command": "headline_move",
       "args": {"forward": false, "same_level": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
