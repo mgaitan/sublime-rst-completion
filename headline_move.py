@@ -12,7 +12,12 @@ Header = namedtuple('Header', "level start end adornement title raw")
 class RstHeaderTree(object):
 
     def __init__(self, text):
-        self.headers = self._parse(text)
+        # add a ficticius break as first line
+        # to allow catching a very first header without overline.
+        # This imply any position returned (Header.start, Header.end)
+        # must be decremented one character
+
+        self.headers = self._parse('\n' + text)
         self._text_lenght = len(text)
 
     def _parse(self, text):
@@ -45,7 +50,7 @@ class RstHeaderTree(object):
                     levels.append(adornement)
                 level = levels.index(adornement)
                 raw = "\n".join(candidate)
-                start = text.find(raw)
+                start = text.find(raw) - 1
                 end = start + len(raw)
                 h = Header(level, start, end, adornement, title, raw)
                 headers.append(h)
@@ -108,7 +113,6 @@ class RstHeaderTree(object):
             headers = self.headers[:]
 
         index = headers.index(header)
-        print [(h.level, h.title) for h in headers][index:]
         try:
             return headers[index + 1]
         except IndexError:
