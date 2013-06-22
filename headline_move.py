@@ -1,6 +1,3 @@
-# inspired on the code of Muchenxuan Tong in
-# https://github.com/demon386/SmartMarkdown
-
 import sublime
 import sublime_plugin
 import re
@@ -74,6 +71,7 @@ class RstHeaderTree(object):
         """filter headers by level"""
         return [h for h in self.headers if h.level == level]
 
+
     def region(self, header):
         """
         determines the (start, end) region under the given header
@@ -105,11 +103,12 @@ class RstHeaderTree(object):
         """
         if same_level:
             headers = [h for h in self.headers
-                       if h.level >= header.level]
+                       if h.level <= header.level]
         else:
             headers = self.headers[:]
 
-        index = self.headers.index(header)
+        index = headers.index(header)
+        print [(h.level, h.title) for h in headers][index:]
         try:
             return headers[index + 1]
         except IndexError:
@@ -119,17 +118,22 @@ class RstHeaderTree(object):
         """same than next, but in reversed direction
         """
         if same_level:
-            headers = self.level(header.level)
+            headers = [h for h in self.headers
+                       if h.level <= header.level]
+
         else:
             headers = self.headers[:]
 
-        index = self.headers.index(header)
+        index = headers.index(header)
         if index == 0:
             return None
         return headers[index - 1]
 
 
 class HeadlineMoveCommand(sublime_plugin.TextCommand):
+    # inspired on the code of Muchenxuan Tong in
+    # https://github.com/demon386/SmartMarkdown
+
     def run(self, edit, forward=True, same_level=True):
         """Move between headlines, forward or backward.
 
@@ -146,8 +150,8 @@ class HeadlineMoveCommand(sublime_plugin.TextCommand):
             h = tree.next(parent_belong, same_level)
         else:
             h = tree.prev(parent_belong, same_level)
-        print h.title
-        self.jump_to(h.end)
+        if h:
+            self.jump_to(h.end - len(h.raw.split('\n')[-1]) -1 )
 
     def jump_to(self, pos):
         region = sublime.Region(pos, pos)
