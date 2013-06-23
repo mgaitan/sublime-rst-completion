@@ -318,7 +318,10 @@ For example::
 
 Result in:
 
-.. image:: img/folding.png
+    .. image:: https://raw.github.com/dbousamra/sublime-rst-completion/11_foldable_headers/img/folding.png
+
+
+Nested sections under a header are included.
 
 
 Navigation
