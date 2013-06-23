@@ -3,8 +3,11 @@ import sublime_plugin
 import re
 from collections import namedtuple
 
-ADORNEMENTS = r"[\!\"\#\$\%\&\\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\\^\_\`\{\|\}\~]"
-PATTERN = r"^(%s*)\n(?P<title>.+)\n(?P<underline>%s+)" % (ADORNEMENTS,ADORNEMENTS)
+# reference:
+#   http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#sections
+ADORNEMENTS = r"""[!"#$%&'\\()*+,\-./:;<=>?@\[\]\^_`{|}~]"""
+PATTERN = r"^(%s*)\n(?P<tit>.+)\n(?P<under>%s+)" % (ADORNEMENTS,
+                                                    ADORNEMENTS)
 
 Header = namedtuple('Header', "level start end adornement title raw")
 
@@ -29,7 +32,8 @@ class RstHeaderTree(object):
         level: int (zero-based). the "weight" of the header.
         start: index where the header starts
         end: index where the header ends
-        adornement: one (just underlined) or two char (over and underline) string
+        adornement: one (just underlined) or two char
+                    (over and underline) string
                     that represent the adornement,
         title: the parsed title
         raw : the raw parsed header text, including breaks.
@@ -42,7 +46,7 @@ class RstHeaderTree(object):
 
         for candidate in candidates:
             (over, title, under) = candidate
-            # validate
+            # validate.
             if (over == '' or over == under) and len(under) >= len(title):
                 # encode the adornement of the header to calculate its level
                 adornement = under[0] * (2 if over else 1)
@@ -50,7 +54,7 @@ class RstHeaderTree(object):
                     levels.append(adornement)
                 level = levels.index(adornement)
                 raw = "\n".join(candidate)
-                start = text.find(raw) - 1
+                start = text.find(raw) - 1    # see comment on __init__
                 end = start + len(raw)
                 h = Header(level, start, end, adornement, title, raw)
                 headers.append(h)
@@ -71,17 +75,11 @@ class RstHeaderTree(object):
         except IndexError:
             return None
 
-
-    def level(self, level):
-        """filter headers by level"""
-        return [h for h in self.headers if h.level == level]
-
-
     def region(self, header):
         """
         determines the (start, end) region under the given header
-        A region ends when a header of the same or higher level (i.e lower number)
-        is found or at the EOF
+        A region ends when a header of the same or higher level
+        (i.e lower number) is found or at the EOF
         """
 
         try:
@@ -99,49 +97,50 @@ class RstHeaderTree(object):
 
         return (start, self._text_lenght)
 
-    def next(self, header, same_level=False):
-        """given a header returns the closer header
-           (down direction)
-
-           If same_level is true, only move to headline with the same level
-           or higher level.
+    def _index(self, header, same_or_high=False):
         """
-        if same_level:
+        helper method that returns the absolute index
+        of the header in the tree or a filteredr tree
+        If same_or_high is true, only move to headline with the same level
+        or higher level.
+
+        returns (index, headers)
+        """
+        if same_or_high:
             headers = [h for h in self.headers
                        if h.level <= header.level]
         else:
             headers = self.headers[:]
+        return headers.index(header), headers
 
-        index = headers.index(header)
+    def next(self, header, same_or_high=False):
+        """
+        given a header returns the closer header
+        (down direction)
+        """
+        index, headers = self._index(header, same_or_high)
         try:
             return headers[index + 1]
         except IndexError:
             return None
 
-    def prev(self, header, same_level=False):
+    def prev(self, header, same_or_high=False):
         """same than next, but in reversed direction
         """
-        if same_level:
-            headers = [h for h in self.headers
-                       if h.level <= header.level]
-
-        else:
-            headers = self.headers[:]
-
-        index = headers.index(header)
+        index, headers = self._index(header, same_or_high)
         if index == 0:
             return None
         return headers[index - 1]
 
 
 class HeadlineMoveCommand(sublime_plugin.TextCommand):
-    # inspired on the code of Muchenxuan Tong in
+    # briefly inspired on the code of Muchenxuan Tong in
     # https://github.com/demon386/SmartMarkdown
 
-    def run(self, edit, forward=True, same_level=True):
+    def run(self, edit, forward=True, same_or_high=True):
         """Move between headlines, forward or backward.
 
-        If same_level is true, only move to headline with the same level
+        If same_or_high is true, only move to headline with the same level
         or higher level.
 
         """
@@ -151,19 +150,17 @@ class HeadlineMoveCommand(sublime_plugin.TextCommand):
         parent_belong = tree.belong_to(cursor_pos)
 
         if forward:
-            h = tree.next(parent_belong, same_level)
+            h = tree.next(parent_belong, same_or_high)
         else:
-            h = tree.prev(parent_belong, same_level)
+            h = tree.prev(parent_belong, same_or_high)
         if h:
-            self.jump_to(h.end - len(h.raw.split('\n')[-1]) -1 )
+            self.jump_to(h.end - len(h.raw.split('\n')[-1]) - 1)
 
     def jump_to(self, pos):
         region = sublime.Region(pos, pos)
         self.view.sel().clear()
         self.view.sel().add(region)
         self.view.show(region)
-
-
 
 if __name__ == '__main__':
 
@@ -199,4 +196,3 @@ $$
     for h in tree.headers:
         print h
         print tree.region(h)
-

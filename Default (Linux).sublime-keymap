@@ -92,25 +92,25 @@
           ]
     },
      { "keys": ["ctrl+down"], "command": "headline_move",
-      "args": {"forward": true, "same_level": false}, "context":
+      "args": {"forward": true, "same_or_high": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
     { "keys": ["ctrl+shift+down"], "command": "headline_move",
-      "args": {"forward": true, "same_level": true}, "context":
+      "args": {"forward": true, "same_or_high": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
     { "keys": ["ctrl+up"], "command": "headline_move",
-      "args": {"forward": false, "same_level": false}, "context":
+      "args": {"forward": false, "same_or_high": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
     { "keys": ["ctrl+shift+up"], "command": "headline_move",
-      "args": {"forward": false, "same_level": true}, "context":
+      "args": {"forward": false, "same_or_high": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
