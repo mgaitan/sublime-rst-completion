@@ -5,6 +5,7 @@ A group of snippets and commands to facilitate writing restructuredText
 with Sublime text editor. This plugin will hopefully evolve to make
 Sublime a useful documentation toolkit.
 
+.. contents::
 
 Install
 -------
@@ -261,10 +262,15 @@ Also note that orderer list works with an alphabetic pattern or roman numbers pa
    <https://github.com/demon386/SmartMarkdown>`_
 
 
-Header completion
------------------
+Headers
+--------
 
-You can autocomplete standard headers (over/)underlines with TAB.
+.. _header completion:
+
+Autocompletion
++++++++++++++++
+
+You can autocomplete standard headers (over/)underlines with ``TAB``.
 
 For example try this::
 
@@ -290,6 +296,19 @@ You'll get::
     ----------
 
 respectively.
+
+Navigation
+++++++++++
+
+Also, it's possible to jump between headers.
+``ctrl+down`` and ``ctrl+up`` move the cursor positin
+to the closer next or previous header respectively.
+
+``ctrl+shift+down`` and ``ctrl+shift+up`` to the same, but only
+between headers with the same or higher level (i.e. ignore childrens)
+
+The header level is detected automatically.
+
 
 Magic Footnotes
 ---------------
