@@ -114,7 +114,12 @@
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
+    }, { "keys": ["tab"], "command": "smart_folding","context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+        ]
     }
+
 
 
 ]
