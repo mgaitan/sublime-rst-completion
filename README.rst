@@ -301,7 +301,7 @@ Navigation
 ++++++++++
 
 Also, it's possible to jump between headers.
-``ctrl+down`` and ``ctrl+up`` move the cursor positin
+``ctrl+down`` and ``ctrl+up`` move the cursor position
 to the closer next or previous header respectively.
 
 ``ctrl+shift+down`` and ``ctrl+shift+up`` to the same, but only
