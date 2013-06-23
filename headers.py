@@ -1,3 +1,4 @@
+import sublime
 from helpers import BaseBlockCommand
 
 
@@ -26,3 +27,10 @@ class SmartHeaderCommand(BaseBlockCommand):
             else:
                 result = strike + '\n' + title + '\n' + strike + '\n'
             self.view.replace(edit, region, result)
+
+            p = self.view.sel()[0].begin() - 1
+            self.view.sel().clear()
+            move = sublime.Region(p, p)
+            self.view.sel().add(move)
+            self.view.show(p)
+
