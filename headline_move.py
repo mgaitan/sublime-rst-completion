@@ -179,13 +179,11 @@ class SmartFoldingCommand(sublime_plugin.TextCommand):
         region = sublime.Region(0, self.view.size())
         tree = RstHeaderTree(self.view.substr(region))
         parent = tree.belong_to(cursor_pos)
-        print self.view.folded_regions()
         is_in_header = parent.start <= cursor_pos <= parent.end
         if is_in_header:
             start, end = tree.region(parent)
             start += len(parent.raw) + 1
             region = sublime.Region(start, end)
-            print region
             if any([i.contains(region) for i in
                     self.view.folded_regions()]):
                 self.view.unfold(region)
