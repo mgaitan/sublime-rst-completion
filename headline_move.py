@@ -125,13 +125,13 @@ class RstHeaderTree(object):
         except IndexError:
             return None
 
-    def prev(self, header, same_or_high=False):
+    def prev(self, header, same_or_high=False, offset=-1):
         """same than next, but in reversed direction
         """
         index, headers = self._index(header, same_or_high)
         if index == 0:
             return None
-        return headers[index - 1]
+        return headers[index + offset]
 
 
 class HeadlineMoveCommand(sublime_plugin.TextCommand):
@@ -148,12 +148,14 @@ class HeadlineMoveCommand(sublime_plugin.TextCommand):
         cursor_pos = self.view.sel()[0].begin()
         region = sublime.Region(0, self.view.size())
         tree = RstHeaderTree(self.view.substr(region))
-        parent_belong = tree.belong_to(cursor_pos)
+        parent = tree.belong_to(cursor_pos)
 
         if forward:
-            h = tree.next(parent_belong, same_or_high)
+            h = tree.next(parent, same_or_high)
         else:
-            h = tree.prev(parent_belong, same_or_high)
+            is_in_header = parent.start <= cursor_pos <= parent.end
+            offset = -1 if is_in_header else 0
+            h = tree.prev(parent, same_or_high, offset)
         if h:
             self.jump_to(h.end - len(h.raw.split('\n')[-1]) - 1)
 
