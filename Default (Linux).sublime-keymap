@@ -58,7 +58,13 @@
             { "key": "preceding_text", "operator": "regex_contains",
               "operand": "^\\s*([-+\\*\\|*]|(\\d+|[a-y]|[A-Y]|[MDCLXVImdclxvi]+)\\.+)\\s+" }
           ]
-    }, { "keys": ["tab"], "command": "smart_header", "context":
+    }, { "keys": ["tab"], "command": "smart_folding","context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+        ]
+    },
+
+    { "keys": ["tab"], "command": "smart_header", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+]+" }
@@ -111,10 +117,6 @@
     },
     { "keys": ["ctrl+shift+up"], "command": "headline_move",
       "args": {"forward": false, "same_or_high": true}, "context":
-        [
-            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
-        ]
-    }, { "keys": ["tab"], "command": "smart_folding","context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
