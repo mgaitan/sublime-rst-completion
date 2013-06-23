@@ -308,9 +308,17 @@ For example::
     Folding/unfolding
     +++++++++++++++++<TAB>
 
+    If you put the cursor in a completed header and press ``TAB``,
+    the section under it will be folded/unfolded.
+
+    Navigation
+    ++++++++++
+
+    ...
+
 Result in:
 
-    .. image:: img/folding.png
+.. image:: img/folding.png
 
 
 Navigation
