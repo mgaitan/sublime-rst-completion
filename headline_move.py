@@ -47,7 +47,8 @@ class RstHeaderTree(object):
         for candidate in candidates:
             (over, title, under) = candidate
             # validate.
-            if (over == '' or over == under) and len(under) >= len(title):
+            if ((over == '' or over == under) and len(under) >= len(title)
+                    and len(set(under)) == 1):
                 # encode the adornement of the header to calculate its level
                 adornement = under[0] * (2 if over else 1)
                 if adornement not in levels:
