@@ -7,13 +7,13 @@ import re
 import os.path
 import sys
 import subprocess
-from subprocess import PIPE
 
 
 class RenderRstCommand(sublime_plugin.TextCommand):
 
-    TARGETS = ['html (pandoc)', 'html (rst2html)', 'pdf (pandoc)', 'pdf (rst2pdf)',
-               'odt (pandoc)', 'odt (rst2odt)', 'docx (pandoc)']
+    TARGETS = ['html (pandoc)', 'html (rst2html)', 'pdf (pandoc)',
+               'pdf (rst2pdf)', 'odt (pandoc)', 'odt (rst2odt)',
+               'docx (pandoc)']
 
     def is_enabled(self):
         return True
@@ -28,7 +28,8 @@ class RenderRstCommand(sublime_plugin.TextCommand):
                                             sublime.MONOSPACE_FONT)
 
     def convert(self, target_index):
-        target, tool = re.match(r"(.*) \((.*)\)", self.targets[target_index]).groups()
+        target, tool = re.match(r"(.*) \((.*)\)",
+                                self.targets[target_index]).groups()
 
         # update targets: last used turns the first option
         self.targets.insert(0, self.targets.pop(target_index))
@@ -46,12 +47,14 @@ class RenderRstCommand(sublime_plugin.TextCommand):
 
         # write buffer to temporary file
         # This is useful because it means we don't need to save the buffer
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".rst") as tmp_rst:
+        with tempfile.NamedTemporaryFile(delete=False,
+                                         suffix=".rst") as tmp_rst:
             tmp_rst.write(contents)
 
         # output file...
         suffix = "." + target
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as output:
+        with tempfile.NamedTemporaryFile(delete=False,
+                                         suffix=suffix) as output:
             output.close()
             output_name = output.name
 
@@ -65,18 +68,12 @@ class RenderRstCommand(sublime_plugin.TextCommand):
             cmd = ["%s.py" % tool, infile, outfile]
 
         try:
-            # Use the current directory as working dir whenever possible
-            file_name = self.view.file_name()
-            if file_name:
-                working_dir = os.path.dirname(file_name)
-                p = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE,
-                                     cwd=working_dir)
+            if sys.platform == "win32":
+                subprocess.call(cmd, shell=True)
             else:
-                p = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE)
-            p.wait()
-            out, err = p.communicate()
-            if err:
-                raise Exception("Command: %s\n" % " ".join(cmd) + "\nErrors: " + err)
+                subprocess.call(cmd, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+
         except Exception as e:
             sublime.error_message("Fail to generate output.\n{0}".format(e))
 
