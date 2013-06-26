@@ -14,7 +14,7 @@ class SmartHeaderCommand(BaseBlockCommand):
                 return
 
             title = lines[-2]
-            title_lenght = len(title)
+            title_lenght = len(title.encode("utf-8"))
             strike = adornment_char * title_lenght
             if head_lines == 2:
                 result = title + '\n' + strike
