@@ -195,7 +195,7 @@ $$
 
 """
     tree = RstHeaderTree(rst)
-    print "lenght", tree._text_lenght
+    print("lenght", tree._text_lenght)
     for h in tree.headers:
-        print h
-        print tree.region(h)
+        print(h)
+        print(tree.region(h))
