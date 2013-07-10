@@ -51,7 +51,7 @@ Usage
 
 import re
 import textwrap
-from helpers import BaseBlockCommand
+from .helpers import BaseBlockCommand
 
 
 class TableCommand(BaseBlockCommand):

@@ -1,4 +1,4 @@
-from helpers import BaseBlockCommand
+from .helpers import BaseBlockCommand
 
 
 class SmartHeaderCommand(BaseBlockCommand):
