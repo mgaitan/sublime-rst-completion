@@ -2,7 +2,7 @@ Sublime Text Restructured Text Code Completion (rst)
 =======================================================
 
 A group of snippets and commands to facilitate writing restructuredText
-with Sublime text editor. This plugin will hopefully evolve to make
+with Sublime Text 2 or 3. This plugin will hopefully evolve to make
 Sublime a useful documentation toolkit.
 
 .. contents::
@@ -19,7 +19,7 @@ Otherwise you can:
 
       git clone git@github.com:dbousamra/sublime-rst-completion.git
 
-- Or download the `.zip`_ file and unzip it into your ST2 packages
+- Or download the `.zip`_ file and unzip it into your ST2/ST3 packages
   directory.
 
 Optionally, to use the `preview rendering`_ feature, you need to install at least one of
