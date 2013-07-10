@@ -1,4 +1,8 @@
-from .helpers import BaseBlockCommand
+# py3 import compatibility. Better way to do this?
+try:
+    from .helpers import BaseBlockCommand
+except ValueError:
+    from helpers import BaseBlockCommand    # NOQA
 
 
 class SmartHeaderCommand(BaseBlockCommand):

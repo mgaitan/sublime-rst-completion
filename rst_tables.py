@@ -51,11 +51,13 @@ Usage
 
 import re
 import textwrap
-from .helpers import BaseBlockCommand
+try:
+    from .helpers import BaseBlockCommand
+except ValueError:
+    from helpers import BaseBlockCommand    # NOQA
 
 
 class TableCommand(BaseBlockCommand):
-
 
     def get_withs(self, lines):
         return None
