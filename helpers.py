@@ -30,7 +30,7 @@ class BaseBlockCommand(sublime_plugin.TextCommand):
                 upper -= 1
 
         except Exception as e:
-            print e
+            print(e)
             pass
         else:
             upper += 1
@@ -39,7 +39,7 @@ class BaseBlockCommand(sublime_plugin.TextCommand):
             while self._get_row_text(lower + 1).strip():
                 lower += 1
         except Exception as e:
-            print e
+            print(e)
             pass
         else:
             lower -= 1

@@ -1,5 +1,8 @@
-import sublime
-from helpers import BaseBlockCommand
+# py3 import compatibility. Better way to do this?
+try:
+    from .helpers import BaseBlockCommand
+except ValueError:
+    from helpers import BaseBlockCommand    # NOQA
 
 
 class SmartHeaderCommand(BaseBlockCommand):
@@ -13,24 +16,12 @@ class SmartHeaderCommand(BaseBlockCommand):
                     head_lines == 3 and lines[-3][0] != adornment_char):
                 # invalid header
                 return
-            title = lines[-2]
-            title_lenght = len(title)
-            # is header completed ?
-            if (len(lines[-1]) >= len(title) and
-                    (head_lines == 2 or len(lines[-3]) >= len(title))):
-                self.view.run_command('smart_folding')
-                return
 
+            title = lines[-2]
+            title_lenght = len(title.encode("utf-8"))
             strike = adornment_char * title_lenght
             if head_lines == 2:
-                result = title + '\n' + strike + '\n'
+                result = title + '\n' + strike
             else:
-                result = strike + '\n' + title + '\n' + strike + '\n'
+                result = strike + '\n' + title + '\n' + strike
             self.view.replace(edit, region, result)
-
-            p = self.view.sel()[0].begin() - 1
-            self.view.sel().clear()
-            move = sublime.Region(p, p)
-            self.view.sel().add(move)
-            self.view.show(p)
-
