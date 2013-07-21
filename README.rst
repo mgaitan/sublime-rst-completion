@@ -357,8 +357,7 @@ This will happen:
 -  The cursor will be moved to write the note
 
 After write the note you can go back to the reference with ``shift+up``. Also, if
-the cursor is over a reference (i.e: around something like ``[XX]_``) you can jump to its
-definition with ``shift+down`` [1]_.
+the cursor is just after a reference (i.e: the caret is next to the underscore like this ``[XX]_``|) you can jump to its definition with ``shift+down`` [1]_.
 
 This feature is based on the code by `J. Nicholas Geist <https://github.com/jngeist>`_
 for `MarkdownEditing <https://github.com/ttscoff/MarkdownEditing>`_
