@@ -21,7 +21,7 @@ class SmartHeaderCommand(BaseBlockCommand):
             title_lenght = len(title.encode("utf-8"))
             strike = adornment_char * title_lenght
             if head_lines == 2:
-                result = title + '\n' + strike
+                result = title + '\n' + strike + '\n'
             else:
-                result = strike + '\n' + title + '\n' + strike
+                result = strike + '\n' + title + '\n' + strike + '\n'
             self.view.replace(edit, region, result)
