@@ -28,6 +28,9 @@ class RenderRstCommand(sublime_plugin.TextCommand):
                                             sublime.MONOSPACE_FONT)
 
     def convert(self, target_index):
+        if target_index == -1:
+            # canceled
+            return
         target, tool = re.match(r"(.*) \((.*)\)",
                                 self.targets[target_index]).groups()
 
