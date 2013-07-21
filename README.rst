@@ -238,6 +238,7 @@ Move the cursor to the cell ``12`` and press ``ctrl+t, down``. You'll get this::
 Smart lists
 -----------
 
+
 Ordered or unordered lists patterns are automatically detected. When you type something
 like this::
 
@@ -300,6 +301,33 @@ You'll get::
 
 respectively.
 
+Folding/unfolding
++++++++++++++++++
+
+If you put the cursor in a completed header and press ``shift + TAB``,
+the section under it will be folded/unfolded.
+
+For example::
+
+    Folding/unfolding
+    +++++++++++++++++<TAB>
+
+    If you put the cursor in a completed header and press ``shift + TAB``,
+    the section under it will be folded/unfolded.
+
+    Navigation
+    ++++++++++
+
+    ...
+
+Result in:
+
+    .. image:: https://raw.github.com/dbousamra/sublime-rst-completion/11_foldable_headers/img/folding.png
+
+
+Nested sections under a header are included.
+
+
 Navigation
 ++++++++++
 
@@ -336,7 +364,7 @@ This feature is based on the code by `J. Nicholas Geist <https://github.com/jnge
 for `MarkdownEditing <https://github.com/ttscoff/MarkdownEditing>`_
 
 Authors
---------
+-------
 
 - Most features added by Martín Gaitán (`mgaitan <http://github.com/mgaitan>`_)
 - Original idea by Dominic Bou-Samra (`dbousamra`_)

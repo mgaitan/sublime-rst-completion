@@ -165,6 +165,35 @@ class HeadlineMoveCommand(sublime_plugin.TextCommand):
         self.view.sel().add(region)
         self.view.show(region)
 
+
+class SmartFoldingCommand(sublime_plugin.TextCommand):
+    """Smart folding is used to fold / unfold headline at the point.
+
+    It's designed to bind to TAB key, and if the current line is not
+    a headline, a \t would be inserted.
+
+    """
+    def run(self, edit):
+
+        cursor_pos = self.view.sel()[0].begin()
+        region = sublime.Region(0, self.view.size())
+        tree = RstHeaderTree(self.view.substr(region))
+        parent = tree.belong_to(cursor_pos)
+        is_in_header = parent.start <= cursor_pos <= parent.end
+        if is_in_header:
+            start, end = tree.region(parent)
+            start += len(parent.raw) + 1
+            region = sublime.Region(start, end)
+            if any([i.contains(region) for i in
+                    self.view.folded_regions()]):
+                self.view.unfold(region)
+            else:
+                self.view.fold(region)
+        else:
+            for r in self.view.sel():
+                self.view.insert(edit, r.a, '\t')
+                self.view.show(r)
+
 if __name__ == '__main__':
 
     rst = """
