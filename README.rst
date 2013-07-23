@@ -349,7 +349,7 @@ Adjust header level
 
 Putting the cursor in a header, pressing ``ctrl + +`` (plus key) and ``ctrl + -``
 (minus key) will increase and decrease the header level respectively.
-The adornement decoration (underline / overline) are autodetected from the document
+The adornment decoration (underline / overline) are autodetected from the document
 and uses Sphinx's conventions as default.
 
 For example, you have the cursor in::
@@ -362,7 +362,6 @@ Wich is a header level 2 and want to convert to a level 3, press ``ctrl + -`` to
     Magic Footnotes
     +++++++++++++++
     |
-
 
 
 Magic Footnotes

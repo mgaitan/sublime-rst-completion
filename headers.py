@@ -11,17 +11,17 @@ except ValueError:
 
 # reference:
 #   http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#sections
-ADORNEMENTS = r"""[!\"#$%&'\\()*+,\-./:;<=>?@\[\]\^_`{|}~]"""
-PATTERN = r"^(%s*)\n(?P<tit>.+)\n(?P<under>%s+)" % (ADORNEMENTS,
-                                                    ADORNEMENTS)
+ADORNMENTS = r"""[!\"#$%&'\\()*+,\-./:;<=>?@\[\]\^_`{|}~]"""
+PATTERN = r"^(%s*)\n(?P<tit>.+)\n(?P<under>%s+)" % (ADORNMENTS,
+                                                    ADORNMENTS)
 
-Header = namedtuple('Header', "level start end adornement title raw")
+Header = namedtuple('Header', "level start end adornment title raw")
 
 
 class RstHeaderTree(object):
     # based on sphinx's header conventions
-    DEFAULT_HEADERS = {0: '**', 1: '=', 2:'-', 3:'^', 4:'"', 5:'+',
-                       6:'~', 7:'#', 8:"'", 9:':'}
+    DEFAULT_HEADERS = {0: '**', 1: '=', 2: '-', 3: '^', 4: '"', 5: '+',
+                       6: '~', 7: '#', 8: "'", 9: ':'}
 
     def __init__(self, text):
         # add a ficticius break as first line
@@ -35,15 +35,15 @@ class RstHeaderTree(object):
     def _parse(self, text):
         """
         Given a chunk of restructuredText, returns a list of tuples
-        (level, start, end, adornement, title, raw) for each header found.
+        (level, start, end, adornment, title, raw) for each header found.
 
 
         level: int (zero-based). the "weight" of the header.
         start: index where the header starts
         end: index where the header ends
-        adornement: one (just underlined) or two char
+        adornment: one (just underlined) or two char
                     (over and underline) string
-                    that represent the adornement,
+                    that represent the adornment,
         title: the parsed title
         raw : the raw parsed header text, including breaks.
 
@@ -58,15 +58,15 @@ class RstHeaderTree(object):
             # validate.
             if ((over == '' or over == under) and len(under) >= len(title)
                     and len(set(under)) == 1):
-                # encode the adornement of the header to calculate its level
-                adornement = under[0] * (2 if over else 1)
-                if adornement not in levels:
-                    levels.append(adornement)
-                level = levels.index(adornement)
+                # encode the adornment of the header to calculate its level
+                adornment = under[0] * (2 if over else 1)
+                if adornment not in levels:
+                    levels.append(adornment)
+                level = levels.index(adornment)
                 raw = "\n".join(candidate)
                 start = text.find(raw) - 1    # see comment on __init__
                 end = start + len(raw)
-                h = Header(level, start, end, adornement, title, raw)
+                h = Header(level, start, end, adornment, title, raw)
                 headers.append(h)
         return headers
 
@@ -143,22 +143,21 @@ class RstHeaderTree(object):
         return headers[index + offset]
 
     def levels(self):
-        """ returns the heading adornement map"""
+        """ returns the heading adornment map"""
         levels = RstHeaderTree.DEFAULT_HEADERS.copy()
         for h in self.headers:
-            levels[h.level] = h.adornement
+            levels[h.level] = h.adornment
         return levels
 
     @classmethod
-    def make_header(cls, title, adornement, force_overline=False):
+    def make_header(cls, title, adornment, force_overline=False):
         title_lenght = len(title.encode("utf-8"))
-        strike = adornement[0] * title_lenght
-        if force_overline or len(adornement) == 2:
+        strike = adornment[0] * title_lenght
+        if force_overline or len(adornment) == 2:
             result = strike + '\n' + title + '\n' + strike + '\n'
         else:
             result = title + '\n' + strike + '\n'
         return result
-
 
 
 class HeaderChangeLevelCommand(sublime_plugin.TextCommand):
@@ -182,8 +181,8 @@ class HeaderChangeLevelCommand(sublime_plugin.TextCommand):
         if offset == -1 and parent.level == 0:
             return
 
-        adornement = levels[parent.level + offset]
-        new_header = RstHeaderTree.make_header(parent.title, adornement)
+        adornment = levels[parent.level + offset]
+        new_header = RstHeaderTree.make_header(parent.title, adornment)
         self.view.replace(edit, hregion, new_header)
 
 
