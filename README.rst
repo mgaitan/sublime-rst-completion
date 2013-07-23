@@ -349,7 +349,7 @@ The header level is detected automatically.
 Adjust header level
 +++++++++++++++++++
 
-Putting the cursor in a header, pressing ``ctrl + +`` (plus key) and ``ctrl + -``
+With the cursor in a header, press ``ctrl + +`` (plus key) and ``ctrl + -``
 (minus key) will increase and decrease the header level respectively.
 The adornment decoration (underline / overline) are autodetected from the document
 and uses Sphinx's conventions as default.
