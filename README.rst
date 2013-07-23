@@ -7,6 +7,8 @@ with Sublime Text 2 or 3. This plugin will hopefully evolve to make
 Sublime a useful documentation toolkit.
 
 .. contents::
+   :depth: 2
+   :local: true
 
 Install
 -------
@@ -34,7 +36,7 @@ In debian/ubuntu you can install them via ``apt-get``::
 .. _docutils: http://docutils.sourceforge.net/
 
 Usage
-=====
+-----
 
 Simple snippets work as tab-triggered shortcuts: type the shortcut and press ``<TAB>`` to
 replace it with the snippet. If the snippet has placeholders, you can jump between them
