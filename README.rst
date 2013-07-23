@@ -8,7 +8,7 @@ Sublime a useful documentation toolkit.
 
 .. contents::
    :depth: 2
-   :local: true
+   :local:
 
 Install
 -------
