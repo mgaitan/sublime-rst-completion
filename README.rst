@@ -359,7 +359,7 @@ For example, you have the cursor in::
     Magic Footnotes|
     ---------------
 
-Wich is a header level 2 and want to convert to a level 3, press ``ctrl + -`` to get::
+Which is a header level 2 and want to convert to a level 3, press ``ctrl + -`` to get::
 
     Magic Footnotes
     +++++++++++++++
