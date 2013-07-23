@@ -19,6 +19,9 @@ Header = namedtuple('Header', "level start end adornement title raw")
 
 
 class RstHeaderTree(object):
+    # based on sphinx's header conventions
+    DEFAULT_HEADERS = {0: '**', 1: '=', 2:'-', 3:'^', 4:'"', 5:'+',
+                       6:'~', 7:'#', 8:"'", 9:':'}
 
     def __init__(self, text):
         # add a ficticius break as first line
@@ -139,6 +142,54 @@ class RstHeaderTree(object):
             return None
         return headers[index + offset]
 
+    def levels(self):
+        """ returns the heading adornement map"""
+        levels = RstHeaderTree.DEFAULT_HEADERS.copy()
+        for h in self.headers:
+            levels[h.level] = h.adornement
+        return levels
+
+    @classmethod
+    def make_header(cls, title, adornement, force_overline=False):
+        title_lenght = len(title.encode("utf-8"))
+        strike = adornement[0] * title_lenght
+        if force_overline or len(adornement) == 2:
+            result = strike + '\n' + title + '\n' + strike + '\n'
+        else:
+            result = title + '\n' + strike + '\n'
+        return result
+
+
+
+class HeaderChangeLevelCommand(sublime_plugin.TextCommand):
+    """
+    increase or decrease the header level,
+    The level markup is autodetected from the document,
+    and use sphinx's convention by default.
+    """
+
+    def run(self, edit, offset=-1):
+        cursor_pos = self.view.sel()[0].begin()
+        region = sublime.Region(0, self.view.size())
+        tree = RstHeaderTree(self.view.substr(region))
+        levels = tree.levels()
+
+        parent = tree.belong_to(cursor_pos)
+        hregion = sublime.Region(parent.start + 1, parent.end + 1)
+        if not (parent.start < cursor_pos <= parent.end):
+            return
+
+        if offset == -1 and parent.level == 0:
+            return
+
+        if offset == 1 and parent.level == max(levels.keys()):
+            return
+
+        adornement = levels[parent.level + offset]
+        new_header = RstHeaderTree.make_header(parent.title, adornement)
+        self.view.replace(edit, hregion, new_header)
+
+
 
 class HeadlineMoveCommand(sublime_plugin.TextCommand):
     # briefly inspired on the code of Muchenxuan Tong in
@@ -214,10 +265,6 @@ class SmartHeaderCommand(BaseBlockCommand):
                 return
 
             title = lines[-2]
-            title_lenght = len(title.encode("utf-8"))
-            strike = adornment_char * title_lenght
-            if head_lines == 2:
-                result = title + '\n' + strike + '\n'
-            else:
-                result = strike + '\n' + title + '\n' + strike + '\n'
+            force_overline = head_lines == 3
+            result = RstHeaderTree.make_header(title, adornment_char, force_overline)
             self.view.replace(edit, region, result)

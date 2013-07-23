@@ -1,5 +1,6 @@
+
 Sublime Text Restructured Text Code Completion (rst)
-=======================================================
+====================================================
 
 A group of snippets and commands to facilitate writing restructuredText
 with Sublime Text 2 or 3. This plugin will hopefully evolve to make
@@ -111,10 +112,11 @@ Also standard admonitions are expanded:
 +---------------+
 
 
+
 .. _preview rendering:
 
 Render preview
----------------
+--------------
 
 You can preview your document in different formats converted with different tools
 pressing ``ctrl+shift+r``.
@@ -134,6 +136,7 @@ Each time you select a ``format + tool`` option, it turns the default the follow
 
 
 .. _tables:
+
 
 Magic Tables
 ------------
