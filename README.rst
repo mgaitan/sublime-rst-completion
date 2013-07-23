@@ -1,5 +1,6 @@
+
 Sublime Text Restructured Text Code Completion (rst)
-=======================================================
+====================================================
 
 A group of snippets and commands to facilitate writing restructuredText
 with Sublime Text 2 or 3. This plugin will hopefully evolve to make
@@ -33,7 +34,7 @@ In debian/ubuntu you can install them via ``apt-get``::
 .. _docutils: http://docutils.sourceforge.net/
 
 Usage
------
+=====
 
 Simple snippets work as tab-triggered shortcuts: type the shortcut and press ``<TAB>`` to
 replace it with the snippet. If the snippet has placeholders, you can jump between them
@@ -111,10 +112,11 @@ Also standard admonitions are expanded:
 +---------------+
 
 
+
 .. _preview rendering:
 
 Render preview
----------------
+--------------
 
 You can preview your document in different formats converted with different tools
 pressing ``ctrl+shift+r``.
@@ -134,6 +136,7 @@ Each time you select a ``format + tool`` option, it turns the default the follow
 
 
 .. _tables:
+
 
 Magic Tables
 ------------
@@ -339,6 +342,27 @@ to the closer next or previous header respectively.
 between headers with the same or higher level (i.e. ignore childrens)
 
 The header level is detected automatically.
+
+
+Adjust header level
++++++++++++++++++++
+
+Putting the cursor in a header, pressing ``ctrl + +`` (plus key) and ``ctrl + -``
+(minus key) will increase and decrease the header level respectively.
+The adornement decoration (underline / overline) are autodetected from the document
+and uses Sphinx's conventions as default.
+
+For example, you have the cursor in::
+
+    Magic Footnotes|
+    ---------------
+
+Wich is a header level 2 and want to convert to a level 3, press ``ctrl + -`` to get::
+
+    Magic Footnotes
+    +++++++++++++++
+    |
+
 
 
 Magic Footnotes
