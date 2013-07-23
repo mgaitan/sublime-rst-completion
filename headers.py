@@ -11,7 +11,7 @@ except ValueError:
 
 # reference:
 #   http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#sections
-ADORNEMENTS = r"""[!"#$%&'\\()*+,\-./:;<=>?@\[\]\^_`{|}~]"""
+ADORNEMENTS = r"""[!\"#$%&'\\()*+,\-./:;<=>?@\[\]\^_`{|}~]"""
 PATTERN = r"^(%s*)\n(?P<tit>.+)\n(?P<under>%s+)" % (ADORNEMENTS,
                                                     ADORNEMENTS)
 
@@ -182,13 +182,9 @@ class HeaderChangeLevelCommand(sublime_plugin.TextCommand):
         if offset == -1 and parent.level == 0:
             return
 
-        if offset == 1 and parent.level == max(levels.keys()):
-            return
-
         adornement = levels[parent.level + offset]
         new_header = RstHeaderTree.make_header(parent.title, adornement)
         self.view.replace(edit, hregion, new_header)
-
 
 
 class HeadlineMoveCommand(sublime_plugin.TextCommand):
