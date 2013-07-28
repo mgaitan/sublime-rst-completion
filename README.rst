@@ -258,8 +258,13 @@ When press ``enter`` the newline will prepended with a logical next item::
 
 If you press ``enter`` when the item is empty, the markup is erased keeping
 the same indent as the previous line, in order to allow multilines items.
-Also note that orderer list works with an alphabetic pattern or roman numbers pattern
-(``a. b. c. ...``, ``A. B. C. ...``, ``i. ii. iii. iv. ...``, ``X. XI. XII. ...``).
+Also note that orderer list works with an alphabetic pattern or roman numbers pattern 
+suffixed with a period 
+(``a. b. c. ...``, ``A. B. C. ...``, ``i. ii. iii. iv. ...``, ``X. XI. XII. ...``, ``#.``);
+surrounded by parentheses 
+(``(a) (b) (c) ...``, ``(A) (B) (C) ...``, ``(i) (ii) (iii) (iv) ...``, ``(X) (XI) (XII) ...``, ``(#)``);
+or suffixed with a right-parenthesis.
+(``a) b) c) ...``, ``A) B) C) ...``, ``i) ii) iii) iv) ...``, ``X) XI) XII) ...``, ``#)``);
 
 .. tip::
 
