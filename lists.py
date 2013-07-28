@@ -16,8 +16,8 @@ import sublime_plugin
 
 
 ORDER_LIST_PATTERN = re.compile(r"(\s*[(]?)(\d+|[a-y]|[A-Y])([.)]\s+)\S+")
-UNORDER_LIST_PATTERN = re.compile(r"(\s*[-+\*\|*]+)(\s+)\S+")
-EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+\**]|\d+|[a-y]|[A-Y])\.(\s+)$")
+UNORDER_LIST_PATTERN = re.compile(r"(\s*(?:[-+|*]+|[(]?#[).]))(\s+)\S+")
+EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+*]|(?:\d+|[a-y]|[A-Y]|#)\.)(\s+)$")
 NONLIST_PATTERN = re.compile(r"(\s*[>|%]+)(\s+)\S?")
 ROMAN_PATTERN = re.compile(r"(\s*[(]?)(M{0,4}CM|CD|D?C{0,3}XC|XL|L?X{0,3}IX|IV|V?I{0,3})([.)]\s+)\S+",
                            re.IGNORECASE)
