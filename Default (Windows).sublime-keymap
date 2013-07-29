@@ -1,16 +1,16 @@
 [
     {
-        "keys": ["ctrl+b"], "command": "strongemphasis", "context":
+        "keys": ["ctrl+alt+b"], "command": "strongemphasis", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["ctrl+i"], "command": "emphasis", "context":
+        "keys": ["ctrl+alt+i"], "command": "emphasis", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["ctrl+k"], "command": "literal", "context":
+        "keys": ["ctrl+alt+k"], "command": "literal", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
