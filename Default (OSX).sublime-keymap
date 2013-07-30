@@ -56,7 +56,7 @@
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
             { "key": "preceding_text", "operator": "regex_contains",
-              "operand": "^\\s*([-+\\*\\|*]|(\\d+|[a-y]|[A-Y]|[MDCLXVImdclxvi]+)\\.+)\\s+" }
+              "operand": "^\\s*([-+*]|([(]?(\\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))[).])\\s+" }
           ]
     }, { "keys": ["shift+tab"], "command": "smart_folding","context":
         [
