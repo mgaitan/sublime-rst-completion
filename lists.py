@@ -13,9 +13,14 @@ import re
 
 import sublime
 import sublime_plugin
+try:
+    from .helpers import BaseBlockCommand
+except ValueError:
+    from helpers import BaseBlockCommand    # NOQA
 
 
-ORDER_LIST_PATTERN = re.compile(r"(\s*[(]?)(\d+|[a-y]|[A-Y])([.)]\s+)\S+")
+
+ORDER_LIST_PATTERN = re.compile(r"(\s*[(]?)(\d+|[a-y]|[A-Y])([.)]\s+)(.*)")
 UNORDER_LIST_PATTERN = re.compile(r"(\s*(?:[-+|*]+|[(]?#[).]))(\s+)\S+")
 EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+*]|[(]?(?:\d+|[a-y]|[A-Y]|#|[MDCLXVImdclxvi]+)[.)])(\s+)$")
 NONLIST_PATTERN = re.compile(r"(\s*[>|%]+)(\s+)\S?")
@@ -64,8 +69,29 @@ def from_roman(s):
     return result
 
 
-class SmartListCommand(sublime_plugin.TextCommand):
+class SmartListCommand(BaseBlockCommand):
+
+
     def run(self, edit):
+
+        def update_ordered_list(lines):
+            new_lines = []
+            next_num = None
+            for line in lines:
+                match = ORDER_LIST_PATTERN.match(line)
+                new_line = match.group(1) + \
+                              (next_num or match.group(2)) + \
+                              match.group(3) + match.group(4)
+                new_lines.append(new_line)
+
+                try:
+                    next_num = str(int(match.group(2)) + 1)
+                except ValueError:
+                    next_num = chr(ord(match.group(2)) + 1)
+
+            return new_lines
+
+
         for region in self.view.sel():
             line_region = self.view.line(region)
             # the content before point at the current line.
@@ -101,6 +127,7 @@ class SmartListCommand(sublime_plugin.TextCommand):
                               next_num + \
                               match.group(3)
                 self.view.insert(edit, region.a, "\n" + insert_text)
+
                 break
 
 
@@ -115,6 +142,9 @@ class SmartListCommand(sublime_plugin.TextCommand):
                               next_num + \
                               match.group(3)
                 self.view.insert(edit, region.a, "\n" + insert_text)
+                region, lines, indent = self.get_block_bounds()
+                new_list = update_ordered_list(lines)
+                self.view.replace(edit, region, '\n'.join(new_list))
                 break
 
             match = UNORDER_LIST_PATTERN.match(before_point_content)
