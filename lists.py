@@ -77,18 +77,25 @@ class SmartListCommand(BaseBlockCommand):
         def update_ordered_list(lines):
             new_lines = []
             next_num = None
+            kind = lambda a: a
             for line in lines:
                 match = ORDER_LIST_PATTERN.match(line)
+                if not match:
+                    new_lines.append(line)
+                    continue
                 new_line = match.group(1) + \
-                              (next_num or match.group(2)) + \
+                              (kind(next_num) or match.group(2)) + \
                               match.group(3) + match.group(4)
                 new_lines.append(new_line)
 
-                try:
-                    next_num = str(int(match.group(2)) + 1)
-                except ValueError:
-                    next_num = chr(ord(match.group(2)) + 1)
-
+                if not next_num:
+                    try:
+                        next_num = int(match.group(2))
+                        kind = str
+                    except ValueError:
+                        next_num = ord(match.group(2))
+                        kind = chr
+                next_num += 1
             return new_lines
 
 
@@ -144,7 +151,7 @@ class SmartListCommand(BaseBlockCommand):
                 self.view.insert(edit, region.a, "\n" + insert_text)
                 region, lines, indent = self.get_block_bounds()
                 new_list = update_ordered_list(lines)
-                self.view.replace(edit, region, '\n'.join(new_list))
+                self.view.replace(edit, region, '\n'.join(new_list) + '\n')
                 break
 
             match = UNORDER_LIST_PATTERN.match(before_point_content)
