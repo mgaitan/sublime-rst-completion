@@ -149,9 +149,17 @@ class SmartListCommand(BaseBlockCommand):
                               next_num + \
                               match.group(3)
                 self.view.insert(edit, region.a, "\n" + insert_text)
+                pos = self.view.sel()[0].a
+                print pos
+
                 region, lines, indent = self.get_block_bounds()
+
                 new_list = update_ordered_list(lines)
                 self.view.replace(edit, region, '\n'.join(new_list) + '\n')
+
+                self.view.sel().clear()
+                self.view.sel().add(sublime.Region(pos, pos))
+                self.view.show(pos)
                 break
 
             match = UNORDER_LIST_PATTERN.match(before_point_content)
