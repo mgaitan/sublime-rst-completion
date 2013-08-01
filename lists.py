@@ -24,7 +24,7 @@ ORDER_LIST_PATTERN = re.compile(r"(\s*[(]?)(\d+|[a-y]|[A-Y])([.)]\s+)(.*)")
 UNORDER_LIST_PATTERN = re.compile(r"(\s*(?:[-+|*]+|[(]?#[).]))(\s+)\S+")
 EMPTY_LIST_PATTERN = re.compile(r"(\s*)([-+*]|[(]?(?:\d+|[a-y]|[A-Y]|#|[MDCLXVImdclxvi]+)[.)])(\s+)$")
 NONLIST_PATTERN = re.compile(r"(\s*[>|%]+)(\s+)\S?")
-ROMAN_PATTERN = re.compile(r"(\s*[(]?)(M{0,4}CM|CD|D?C{0,3}XC|XL|L?X{0,3}IX|IV|V?I{0,3})([.)]\s+)\S+",
+ROMAN_PATTERN = re.compile(r"(\s*[(]?)(M{0,4}CM|CD|D?C{0,3}XC|XL|L?X{0,3}IX|IV|V?I{0,3})([.)]\s+)(.*)",
                            re.IGNORECASE)
 #Define digit mapping
 ROMAN_MAP = (('M', 1000),
@@ -98,6 +98,32 @@ class SmartListCommand(BaseBlockCommand):
                 next_num += 1
             return new_lines
 
+        def update_roman_list(lines):
+            new_lines = []
+            next_num = None
+            kind = lambda a: a
+            for line in lines:
+                match = ROMAN_PATTERN.match(line)
+                if not match:
+                    new_lines.append(line)
+                    continue
+                new_line = match.group(1) + \
+                              (kind(next_num) or match.group(2)) + \
+                              match.group(3) + match.group(4)
+                new_lines.append(new_line)
+
+                if not next_num:
+                    actual = match.group(2)
+                    next_num = from_roman(actual.upper())
+
+                    if actual == actual.lower():
+                        kind = lambda a: to_roman(a).lower()
+                    else:
+                        kind = to_roman
+                next_num += 1
+            return new_lines
+
+
 
         for region in self.view.sel():
             line_region = self.view.line(region)
@@ -135,6 +161,18 @@ class SmartListCommand(BaseBlockCommand):
                               match.group(3)
                 self.view.insert(edit, region.a, "\n" + insert_text)
 
+                # backup the cursor position
+                pos = self.view.sel()[0].a
+
+                # update the whole list
+                region, lines, indent = self.get_block_bounds()
+                new_list = update_roman_list(lines)
+                self.view.replace(edit, region, '\n'.join(new_list) + '\n')
+                # restore the cursor position
+                self.view.sel().clear()
+                self.view.sel().add(sublime.Region(pos, pos))
+                self.view.show(pos)
+
                 break
 
 
@@ -149,14 +187,15 @@ class SmartListCommand(BaseBlockCommand):
                               next_num + \
                               match.group(3)
                 self.view.insert(edit, region.a, "\n" + insert_text)
+
+                # backup the cursor position
                 pos = self.view.sel()[0].a
-                print pos
 
+                # update the whole list
                 region, lines, indent = self.get_block_bounds()
-
                 new_list = update_ordered_list(lines)
                 self.view.replace(edit, region, '\n'.join(new_list) + '\n')
-
+                # restore the cursor position
                 self.view.sel().clear()
                 self.view.sel().add(sublime.Region(pos, pos))
                 self.view.show(pos)
