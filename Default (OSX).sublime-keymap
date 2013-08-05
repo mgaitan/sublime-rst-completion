@@ -62,7 +62,7 @@
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
-    },  { "keys": ["ctrl++"], "command": "header_change_level", "context":
+    },  { "keys": ["ctrl+="], "command": "header_change_level", "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
