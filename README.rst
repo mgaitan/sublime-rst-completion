@@ -1,14 +1,22 @@
-
 Sublime Text Restructured Text Code Completion (rst)
 ====================================================
 
 A group of snippets and commands to facilitate writing restructuredText
-with Sublime Text 2 or 3. This plugin will hopefully evolve to make
+with Sublime Text 2 (and, experimentally, 3). This plugin will hopefully evolve to make
 Sublime a useful documentation toolkit.
+
+Demo
+----
+
+.. image:: http://img.youtube.com/vi/otM_tjIi_vY/0.jpg
+   :target: http://www.youtube.com/watch?v=otM_tjIi_vY
+
+
 
 .. contents::
    :depth: 2
    :local:
+
 
 Install
 -------
@@ -258,10 +266,10 @@ When press ``enter`` the newline will prepended with a logical next item::
 
 If you press ``enter`` when the item is empty, the markup is erased keeping
 the same indent as the previous line, in order to allow multilines items.
-Also note that orderer list works with an alphabetic pattern or roman numbers pattern 
-suffixed with a period 
+Also note that orderer list works with an alphabetic pattern or roman numbers pattern
+suffixed with a period
 (``a. b. c. ...``, ``A. B. C. ...``, ``i. ii. iii. iv. ...``, ``X. XI. XII. ...``, ``#.``);
-surrounded by parentheses 
+surrounded by parentheses
 (``(a) (b) (c) ...``, ``(A) (B) (C) ...``, ``(i) (ii) (iii) (iv) ...``, ``(X) (XI) (XII) ...``, ``(#)``);
 or suffixed with a right-parenthesis.
 (``a) b) c) ...``, ``A) B) C) ...``, ``i) ii) iii) iv) ...``, ``X) XI) XII) ...``, ``#)``);
@@ -397,7 +405,7 @@ Authors
 
 - Most features added by Martín Gaitán (`mgaitan <http://github.com/mgaitan>`_)
 - Original idea by Dominic Bou-Samra (`dbousamra`_)
-- An few gentle contributors_
+- An a few gentle contributors_
 
 .. tip::
 
@@ -406,7 +414,8 @@ Authors
 License
 -------
 
-License: Seriously? It's a text editing plugin.
+It's under a `BSD license <https://github.com/dbousamra/sublime-rst-completion/blob/master/LICENSE>`_ .
+
 
 
 .. _.zip: http://github.com/dbousamra/sublime-rst-completion/zipball/master
