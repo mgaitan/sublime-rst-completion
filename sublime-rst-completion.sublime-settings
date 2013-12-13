@@ -1,0 +1,7 @@
+{
+    // Additional path to add the environment for locating dependencies.
+    // For example, if rst2html.py is installed in /usr/local/bin, and 
+    // Pandoc is installed in /opt/pandoc/bin, set:
+    //        "command_path": [ "/usr/local/bin", "/opt/pandoc/bin" ]
+    "command_path": []
+}
