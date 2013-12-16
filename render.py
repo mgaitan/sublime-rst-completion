@@ -15,6 +15,26 @@ class RenderRstCommand(sublime_plugin.TextCommand):
                'pdf (rst2pdf)', 'odt (pandoc)', 'odt (rst2odt)',
                'docx (pandoc)']
 
+    def __init__(self, view):
+        sublime_plugin.TextCommand.__init__(self, view)
+        path_pieces = os.environ['PATH'].split(":")
+        new_path = []
+        
+        def append_path(bit):
+           if bit != "" and bit not in new_path:
+                new_path.append(bit) 
+
+        for bit in path_pieces:
+            append_path(bit)
+
+        settings = sublime.load_settings('sublime-rst-completion.sublime-settings');
+
+        for bit in settings.get('command_path', []):
+            append_path(bit)
+
+        os.environ['PATH'] = ":".join(new_path)
+
+
     def is_enabled(self):
         return True
 
