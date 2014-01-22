@@ -151,7 +151,7 @@ class RstHeaderTree(object):
 
     @classmethod
     def make_header(cls, title, adornment, force_overline=False):
-        title_lenght = len(title.encode("utf-8"))
+        title_lenght = len(title)
         strike = adornment[0] * title_lenght
         if force_overline or len(adornment) == 2:
             result = strike + '\n' + title + '\n' + strike + '\n'
