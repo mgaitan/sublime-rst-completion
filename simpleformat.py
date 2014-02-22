@@ -14,7 +14,6 @@ class SurroundCommand(sublime_plugin.TextCommand):
             sel_str = self.view.substr(sel)
             rsel = sublime.Region(sel.begin() - len_surround, sel.end() + len_surround)
             rsel_str = self.view.substr(rsel)
-            print((sel_str[:len_surround], sel_str[-len_surround:]))
             if sel_str[:len_surround] == self.surround and sel_str[-len_surround:] == self.surround:
                 replacement = sel_str[len_surround:-len_surround]
             else:
