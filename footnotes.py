@@ -101,8 +101,7 @@ class MagicFootnotesCommand(sublime_plugin.TextCommand):
             self.view.run_command('insert_footnote')
 
     def is_enabled(self):
-        return self.view.sel()
-
+        return bool(self.view.sel())
 
 
 class InsertFootnoteCommand(sublime_plugin.TextCommand):
@@ -122,7 +121,7 @@ class InsertFootnoteCommand(sublime_plugin.TextCommand):
         self.view.show(self.view.size())
 
     def is_enabled(self):
-        return self.view.sel()
+        return bool(self.view.sel())
 
 
 class MarkFootnotes(sublime_plugin.EventListener):
@@ -150,7 +149,7 @@ class GoToFootnoteReferenceCommand(sublime_plugin.TextCommand):
             self.view.show(note)
 
     def is_enabled(self):
-        return self.view.sel()
+        return bool(self.view.sel())
 
 
 class GoToFootnoteDefinitionCommand(sublime_plugin.TextCommand):
@@ -183,4 +182,4 @@ class GoToFootnoteDefinitionCommand(sublime_plugin.TextCommand):
                 self.view.show(defs[target])
 
     def is_enabled(self):
-        return self.view.sel()
+        return bool(self.view.sel())
