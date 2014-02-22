@@ -5,7 +5,7 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["alt+i"], "command": "emphasis", "context":
+        "keys": ["super+shift+i"], "command": "emphasis", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
