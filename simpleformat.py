@@ -27,7 +27,7 @@ class SurroundCommand(sublime_plugin.TextCommand):
                 self.view.replace(edit, sel, replacement)
 
 
-class StrongEmphasisCommand(SurroundCommand):
+class StrongemphasisCommand(SurroundCommand):
     surround = "**"
 
 
