@@ -322,7 +322,7 @@ respectively.
 Folding/unfolding
 +++++++++++++++++
 
-If you put the cursor in a completed header and press ``shift + TAB``,
+If you put the cursor in a completed header and press ``shift + TAB`` (``alt + TAB`` in Mac),
 the section under it will be folded/unfolded.
 
 For example::
@@ -331,7 +331,7 @@ For example::
     +++++++++++++++++<TAB>
 
     If you put the cursor in a completed header and press ``shift + TAB``,
-    the section under it will be folded/unfolded.
+    (``alt + TAB`` in Mac) the section under it will be folded/unfolded.
 
     Navigation
     ++++++++++
@@ -350,11 +350,12 @@ Navigation
 ++++++++++
 
 Also, it's possible to jump between headers.
-``ctrl+down`` and ``ctrl+up`` move the cursor position
-to the closer next or previous header respectively.
+``ctrl+down`` and ``ctrl+up`` (``alt+down`` and ``alt+up`` in Mac) move the
+cursor position to the closer next or previous header respectively.
 
-``ctrl+shift+down`` and ``ctrl+shift+up`` to the same, but only
-between headers with the same or higher level (i.e. ignore childrens)
+``ctrl+shift+down`` and ``ctrl+shift+up`` (``alt+shift+down`` and ``alt+shift+up``
+in Mac) to the same, but only between headers with the same or higher level
+(i.e. ignore childrens)
 
 The header level is detected automatically.
 
@@ -385,7 +386,7 @@ Magic Footnotes
 This is the smarter way to add footnotes, grouping them (and keepping count)
 in a common region at the bottom of the document.
 
-When you want to add a new note, press ``alt+shift+f`` (``super+shift+f`` in Mac).
+When you want to add a new note, press ``alt+shift+f``.
 This will happen:
 
 -  A new ``n+1`` (where ``n`` is the current footnotes count) note reference
