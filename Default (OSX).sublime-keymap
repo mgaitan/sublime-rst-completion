@@ -5,7 +5,7 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
-        "keys": ["super+shift+i"], "command": "emphasis", "context":
+        "keys": ["alt+i"], "command": "emphasis", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
@@ -58,7 +58,7 @@
             { "key": "preceding_text", "operator": "regex_contains",
               "operand": "^\\s*([-+*]|([(]?(\\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))[).])\\s+" }
           ]
-    }, { "keys": ["shift+tab"], "command": "smart_folding","context":
+    }, { "keys": ["alt+tab"], "command": "smart_folding","context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
@@ -87,7 +87,7 @@
             { "key": "preceding_text", "operator": "regex_contains", "operand": "^[=\\-\\*\\+\\^\\\"\\+\\~\\#\\'\\:]+" }
            ]
     },
-    { "keys": ["super+shift+f"], "command": "magic_footnotes", "context":
+    { "keys": ["alt+shift+f"], "command": "magic_footnotes", "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
               "match_all": true }
@@ -113,25 +113,25 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     },
-     { "keys": ["ctrl+down"], "command": "headline_move",
+     { "keys": ["alt+down"], "command": "headline_move",
       "args": {"forward": true, "same_or_high": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+shift+down"], "command": "headline_move",
+    { "keys": ["alt+shift+down"], "command": "headline_move",
       "args": {"forward": true, "same_or_high": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+up"], "command": "headline_move",
+    { "keys": ["alt+up"], "command": "headline_move",
       "args": {"forward": false, "same_or_high": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+shift+up"], "command": "headline_move",
+    { "keys": ["alt+shift+up"], "command": "headline_move",
       "args": {"forward": false, "same_or_high": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
