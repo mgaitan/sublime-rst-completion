@@ -350,12 +350,11 @@ Navigation
 ++++++++++
 
 Also, it's possible to jump between headers.
-``ctrl+down`` and ``ctrl+up`` (``alt+down`` and ``alt+up`` in Mac) move the
-cursor position to the closer next or previous header respectively.
+``alt+down`` and ``alt+up`` move the cursor position to the closer next or
+previous header respectively.
 
-``ctrl+shift+down`` and ``ctrl+shift+up`` (``alt+shift+down`` and ``alt+shift+up``
-in Mac) to the same, but only between headers with the same or higher level
-(i.e. ignore childrens)
+``alt+shift+down`` and ``alt+shift+up`` to the same, but only between headers
+with the same or higher level (i.e. ignore childrens)
 
 The header level is detected automatically.
 
