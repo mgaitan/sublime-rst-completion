@@ -115,31 +115,28 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     },
-     { "keys": ["ctrl+down"], "command": "headline_move",
+     { "keys": ["alt+down"], "command": "headline_move",
       "args": {"forward": true, "same_or_high": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+shift+down"], "command": "headline_move",
+    { "keys": ["alt+shift+down"], "command": "headline_move",
       "args": {"forward": true, "same_or_high": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+up"], "command": "headline_move",
+    { "keys": ["alt+up"], "command": "headline_move",
       "args": {"forward": false, "same_or_high": false}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+shift+up"], "command": "headline_move",
+    { "keys": ["alt+shift+up"], "command": "headline_move",
       "args": {"forward": false, "same_or_high": true}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     }
-
-
-
 ]
