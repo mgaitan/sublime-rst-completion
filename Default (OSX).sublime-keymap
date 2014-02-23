@@ -81,10 +81,11 @@
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
-    }, { "keys": ["tab"], "command": "smart_header", "context":
+    },
+    { "keys": ["tab"], "command": "smart_header", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
-            { "key": "preceding_text", "operator": "regex_match", "operand": "([=\\-\\*\\+\\^\\\"\\+\\~\\#\\'\\:\\`])\\1\\1+$" }
+            { "key": "preceding_text", "operator": "regex_match", "operand": "([!\\\"#$%&'\\\\()*+,\\-./:;<=>?@\\[\\]\\^_`{|}~])\\1\\1+$" }
            ]
     },
     { "keys": ["alt+shift+f"], "command": "magic_footnotes", "context":
