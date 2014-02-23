@@ -363,9 +363,9 @@ Adjust header level
 +++++++++++++++++++
 
 With the cursor in a header, press ``ctrl + +`` (plus key) and ``ctrl + -``
-(minus key) will increase and decrease the header level respectively.
-The adornment decoration (underline / overline) are autodetected from the document
-and uses Sphinx's conventions as default.
+(minus key) (``alt + +`` and ``alt + -``, in Mac) will increase and decrease the
+header level respectively. The adornment decoration (underline / overline) are
+autodetected from the document and uses Sphinx's conventions as default.
 
 For example, you have the cursor in::
 
