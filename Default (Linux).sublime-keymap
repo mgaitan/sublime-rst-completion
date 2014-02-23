@@ -97,6 +97,7 @@
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
               "match_all": true },
+             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
              { "key": "preceding_text", "operator": "regex_contains",
                "operand": "^\\.\\. \\[\\d+\\]" }
 
@@ -106,8 +107,8 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext",
               "match_all": true },
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-            {"key": "text", "operator": "regex_contains",
-             "operand": ".*\\[\\d+\\]_.*" }
+            { "key": "preceding_text", "operator": "regex_contains",
+              "operand": ".*\\[\\d+\\]_" }
         ]
     },
     {"keys": ["ctrl+shift+r"], "command": "render_rst", "context":
