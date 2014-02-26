@@ -12,16 +12,14 @@ except ValueError:
 # reference:
 #   http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#sections
 ADORNMENTS = r"""[!\"#$%&'\\()*+,\-./:;<=>?@\[\]\^_`{|}~]"""
-PATTERN = r"^(%s*)\n(?P<tit>.+)\n(?P<under>%s+)" % (ADORNMENTS,
-                                                    ADORNMENTS)
+PATTERN_RE = re.compile(r"^(%s*)\n(.+)\n(%s+)" % (ADORNMENTS, ADORNMENTS), re.MULTILINE)
 
-Header = namedtuple('Header', "level start end adornment title raw")
+Header = namedtuple('Header', "level start end adornment title raw idx")
 
 
 class RstHeaderTree(object):
     # based on sphinx's header conventions
-    DEFAULT_HEADERS = {0: '**', 1: '=', 2: '-', 3: '^', 4: '"', 5: '+',
-                       6: '~', 7: '#', 8: "'", 9: ':'}
+    DEFAULT_HEADERS = '** = - ^ " + ~ # \' :'.split()
 
     def __init__(self, text):
         # add a ficticius break as first line
@@ -49,12 +47,12 @@ class RstHeaderTree(object):
 
         """
 
-        candidates = re.findall(PATTERN, text, re.MULTILINE)
+        candidates = PATTERN_RE.findall(text)
         headers = []
         levels = []
+        idx = 0
 
-        for candidate in candidates:
-            (over, title, under) = candidate
+        for over, title, under in candidates:
             # validate.
             if ((over == '' or over == under) and len(under) >= len(title)
                     and len(set(under)) == 1):
@@ -63,10 +61,11 @@ class RstHeaderTree(object):
                 if adornment not in levels:
                     levels.append(adornment)
                 level = levels.index(adornment)
-                raw = "\n".join(candidate)
-                start = text.find(raw) - 1    # see comment on __init__
+                raw = (over + '\n' if over else '') + title + '\n' + under
+                start = text.find(raw) - 1  # see comment on __init__
                 end = start + len(raw)
-                h = Header(level, start, end, adornment, title, raw)
+                h = Header(level, start, end, adornment, title, raw, idx)
+                idx += 1
                 headers.append(h)
         return headers
 
@@ -144,9 +143,19 @@ class RstHeaderTree(object):
 
     def levels(self):
         """ returns the heading adornment map"""
-        levels = RstHeaderTree.DEFAULT_HEADERS.copy()
+        _levels = RstHeaderTree.DEFAULT_HEADERS.copy()
         for h in self.headers:
-            levels[h.level] = h.adornment
+            _levels[h.level] = h.adornment
+        levels = []
+        for adornment in _levels:
+            if adornment not in levels:
+                levels.append(adornment)
+        for adornment in RstHeaderTree.DEFAULT_HEADERS:
+            if adornment not in levels:
+                if len(adornment) == 2:
+                    levels.insert(0, adornment)
+                else:
+                    levels.append(adornment)
         return levels
 
     @classmethod
@@ -168,24 +177,54 @@ class HeaderChangeLevelCommand(sublime_plugin.TextCommand):
     The level markup is autodetected from the document,
     and use sphinx's convention by default.
     """
+    views = {}
 
     def run(self, edit, offset=-1):
+        vid = self.view.id()
+        HeaderChangeLevelEvent.listen.pop(vid, None)
+
         cursor_pos = self.view.sel()[0].begin()
         region = sublime.Region(0, self.view.size())
         tree = RstHeaderTree(self.view.substr(region))
-        levels = tree.levels()
 
         parent = tree.belong_to(cursor_pos)
-        hregion = sublime.Region(parent.start + 1, parent.end + 1)
-        if not (parent.start < cursor_pos <= parent.end):
+
+        is_in_header = parent.start <= cursor_pos <= parent.end
+        if not is_in_header:
             return
 
-        if offset == -1 and parent.level == 0:
+        idx, levels = HeaderChangeLevelCommand.views.get(vid, (None, None))
+        if idx != parent.idx:
+            levels = tree.levels()
+            HeaderChangeLevelCommand.views[vid] = (parent.idx, levels)
+
+        try:
+            level = levels.index(parent.adornment)
+            if level + offset < 0:
+                return
+            adornment = levels[level + offset]
+        except IndexError:
             return
 
-        adornment = levels[parent.level + offset]
         new_header = RstHeaderTree.make_header(parent.title, adornment)
-        self.view.replace(edit, hregion, new_header)
+        hregion = sublime.Region(parent.start, parent.end + 1)
+
+        try:
+            self.view.replace(edit, hregion, new_header)
+        finally:
+            def callback():
+                HeaderChangeLevelEvent.listen[vid] = True
+            sublime.set_timeout(callback, 0)
+
+
+class HeaderChangeLevelEvent(sublime_plugin.EventListener):
+    listen = {}
+
+    def on_modified(self, view):
+        vid = view.id()
+        if HeaderChangeLevelEvent.listen.get(vid):
+            del HeaderChangeLevelCommand.views[vid]
+            del HeaderChangeLevelEvent.listen[vid]
 
 
 class HeadlineMoveCommand(sublime_plugin.TextCommand):

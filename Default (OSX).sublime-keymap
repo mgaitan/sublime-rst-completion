@@ -62,22 +62,22 @@
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
-    },  { "keys": ["ctrl+="], "command": "header_change_level", "context":
+    },  { "keys": ["alt+="], "command": "header_change_level", "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+keypad_plus"], "command": "header_change_level", "context":
+    { "keys": ["alt+keypad_plus"], "command": "header_change_level", "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+-"], "command": "header_change_level", "args": {"offset": 1},  "context":
+    { "keys": ["alt+-"], "command": "header_change_level", "args": {"offset": 1},  "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
-    { "keys": ["ctrl+keypad_minus"], "command": "header_change_level", "args": {"offset": 1}, "context":
+    { "keys": ["altl+keypad_minus"], "command": "header_change_level", "args": {"offset": 1}, "context":
         [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
