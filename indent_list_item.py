@@ -7,6 +7,7 @@ import sublime_plugin
 class IndentListItemCommand(sublime_plugin.TextCommand):
     bullet_pattern = r'([-+*]|([(]?(\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))([).]))'
     bullet_pattern_re = re.compile(bullet_pattern)
+    line_pattern_re = re.compile(r'^\s*' + bullet_pattern)
     spaces_re = re.compile(r'^\s*')
 
     def run(self, edit, reverse=False):
@@ -19,7 +20,7 @@ class IndentListItemCommand(sublime_plugin.TextCommand):
 
             new_line = line_content
 
-            m = self.bullet_pattern_re.match(new_line)
+            m = self.line_pattern_re.match(new_line)
             if not m:
                 return
 
