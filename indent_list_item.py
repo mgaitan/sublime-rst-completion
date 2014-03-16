@@ -19,9 +19,13 @@ class IndentListItemCommand(sublime_plugin.TextCommand):
 
             new_line = line_content
 
+            m = self.bullet_pattern_re.match(new_line)
+            if not m:
+                return
+
             # Determine how to indent (tab or spaces)
             tab_str = self.view.settings().get('tab_size', 4) * ' '
-            sep_str = ' '
+            sep_str = ' ' if m.group(4) else ''
 
             prev_line = self.view.line(sublime.Region(line.begin() - 1, line.begin() - 1))
             prev_line_content = self.view.substr(prev_line)
