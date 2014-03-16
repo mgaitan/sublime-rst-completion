@@ -140,6 +140,22 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
         ]
     },
+    { "keys": ["tab"], "command": "indent_list_item", "context":
+        [
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*([-+*]|([(]?(\\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))[).])\\s+$", "match_all": true },
+            { "key": "following_text", "operator": "regex_contains", "operand": "^$", "match_all": true },
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext", "match_all": true }
+        ]
+    },
+    { "keys": ["shift+tab"], "command": "indent_list_item", "args": {"reverse": true}, "context":
+        [
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "^\\s*([-+*]|([(]?(\\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))[).])\\s+$", "match_all": true },
+            { "key": "following_text", "operator": "regex_contains", "operand": "^$", "match_all": true },
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext", "match_all": true }
+        ]
+    },
   // Auto-pair `
   { "keys": ["`"], "command": "insert_snippet", "args": {"contents": "`$0`"}, "context":
     [
