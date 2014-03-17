@@ -55,8 +55,9 @@
     }, { "keys": ["enter"], "command": "smart_list", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
             { "key": "preceding_text", "operator": "regex_contains",
-              "operand": "^\\s*([-+*]|([(]?(\\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))[).])\\s+" }
+              "operand": "^\\s*([-+*]|([(]?(\\d+|#|[a-y]|[A-Y]|[MDCLXVImdclxvi]+))[).])\\s+", "match_all": true }
           ]
     }, { "keys": ["alt+tab"], "command": "smart_folding","context":
         [
