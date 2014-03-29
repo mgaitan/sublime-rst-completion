@@ -6,6 +6,11 @@
         { "trigger": "h1", "contents" : "${1/./*/g}\n${1}\n${1/./*/g}" },
         { "trigger": "title, h2", "contents" : "${1}\n${1/./=/g}" },
         { "trigger": "h3", "contents" : "${1}\n${1/./-/g}" },
+        { "trigger": "h4", "contents" : "${1}\n${1/./^/g}" },
+        { "trigger": "h5", "contents" : "${1}\n${1/./\"/g}" },
+        { "trigger": "h6", "contents" : "${1}\n${1/./+/g}" },
+        { "trigger": "h7", "contents" : "${1}\n${1/./~/g}" },
+        { "trigger": "h8", "contents" : "${1}\n${1/./#/g}" },
 
 		{ "trigger": "e", "contents": "*${1}*" },
 		{ "trigger": "se", "contents": "**${1}**" },
