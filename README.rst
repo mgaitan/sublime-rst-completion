@@ -1,9 +1,8 @@
-Sublime Text Restructured Text Code Completion (rst)
-====================================================
+SublimeText ♥ reStructuredText
+==============================
 
-A group of snippets and commands to facilitate writing restructuredText
-with Sublime Text 2 (and, experimentally, 3). This plugin will hopefully evolve to make
-Sublime a useful documentation toolkit.
+``sublime-rst-completion`` is a group of snippets and commands to facilitate writing restructuredText
+with SublimeText. 
 
 Demo
 ----
@@ -28,7 +27,7 @@ Otherwise you can:
 - Clone the repository into
   your `packages folder <http://sublimetext.info/docs/en/basic_concepts.html#the-packages-directory>`_::
 
-      git clone git@github.com:dbousamra/sublime-rst-completion.git
+      git clone git@github.com:mgaitan/sublime-rst-completion.git
 
 - Or download the `.zip`_ file and unzip it into your ST2/ST3 packages
   directory.
@@ -405,7 +404,7 @@ Authors
 
 - Most features added by Martín Gaitán (`mgaitan <http://github.com/mgaitan>`_)
 - Original idea by Dominic Bou-Samra (`dbousamra`_)
-- An a few gentle contributors_
+- And some kind contributors_
 
 .. tip::
 
