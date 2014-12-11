@@ -102,7 +102,7 @@ class RenderRstCommand(sublime_plugin.TextCommand):
 
     def open_result(self, outfile, target):
         if target == "html":
-            webbrowser.open_new_tab(outfile)
+            webbrowser.open_new_tab('file://' + outfile)
         elif sys.platform == "win32":
             os.startfile(outfile)
         elif "mac" in sys.platform or "darwin" in sys.platform:
