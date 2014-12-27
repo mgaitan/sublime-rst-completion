@@ -20,6 +20,11 @@
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
           ]
     }, {
+        "keys": ["super+shift+t", "s"], "command": "simpletable", "context":
+          [
+            { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
+          ]
+    }, {
         "keys": ["super+shift+t", "r"], "command": "flowtable", "context":
           [
             { "key": "selector", "operator": "equal", "operand": "text.restructuredtext" }
