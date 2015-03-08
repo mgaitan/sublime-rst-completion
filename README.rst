@@ -205,7 +205,7 @@ Press the same trigger: magically, the structure will be fixed::
       +-------------------+--------------------------------------------------------+
 
 
-In addition, if you would like to keep the column width fixed, you could **reflow** the table pressing ``ctrl+t, r`` (``super+shift+t, enter`` in Mac). The result would be this::
+In addition, if you would like to keep the column width fixed, you could **reflow** the table pressing ``ctrl+t, r`` (``super+shift+t, r`` in Mac). The result would be this::
 
 
       +----------+---------------------------------------------------------+
