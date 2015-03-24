@@ -37,7 +37,7 @@ def get_footnote_definition_markers(view):
 
 def get_footnote_identifiers(view):
     ids = get_footnote_references(view).keys()
-    ids.sort()
+    list(ids).sort()
     return ids
 
 
@@ -107,7 +107,6 @@ class MagicFootnotesCommand(sublime_plugin.TextCommand):
 
 class InsertFootnoteCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        edit = self.view.begin_edit()
         startloc = self.view.sel()[-1].end()
         markernum = get_next_footnote_marker(self.view)
         if bool(self.view.size()):
@@ -118,7 +117,6 @@ class InsertFootnoteCommand(sublime_plugin.TextCommand):
         self.view.insert(edit, self.view.size(), '\n.. [%s] ' % markernum)
         self.view.sel().clear()
         self.view.sel().add(sublime.Region(self.view.size()))
-        self.view.end_edit(edit)
         self.view.show(self.view.size())
 
     def is_enabled(self):
