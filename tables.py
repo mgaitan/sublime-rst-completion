@@ -56,6 +56,12 @@ try:
 except ValueError:
     from helpers import BaseBlockCommand    # NOQA
 
+import os
+import sys
+wcwidth_dir = os.path.join(os.path.dirname(__file__), 'wcwidth')
+sys.path.insert(0, wcwidth_dir)
+import wcwidth
+
 
 class TableCommand(BaseBlockCommand):
 
@@ -265,7 +271,7 @@ def table_line(widths, header=False):
 
 
 def get_field_width(field_text):
-    return max([len(s) for s in field_text.split('\n')])
+    return max([wcwidth.wcswidth(s) for s in field_text.split('\n')])
 
 
 def split_row_into_lines(row):
@@ -320,6 +326,8 @@ def pad_fields(row, widths):
     others.
 
     """
+    wgaps = [wcwidth.wcswidth(c) - len(c) for c in row]
+    widths = [w-wgaps[i] for i, w in enumerate(widths)]
     widths = [(' %-' + str(w) + 's ') for w in widths]
 
     # Pad all fields using the calculated widths

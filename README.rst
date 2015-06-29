@@ -246,6 +246,9 @@ Move the cursor to the cell ``12`` and press ``ctrl+t, down``. You'll get this::
    The original code of this feature was taken from
    `Vincent Driessen's vim-rst-tables <https://github.com/nvie/vim-rst-tables>`_ :
 
+.. note::
+   
+   The original code of `wcwidth <https://github.com/jquast/wcwidth>`_ was taken to solve alignment issue with CJK characters.
 
 Smart lists
 -----------
