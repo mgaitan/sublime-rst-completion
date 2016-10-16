@@ -2,10 +2,12 @@ SublimeText ♥ reStructuredText
 ==============================
 
 ``sublime-rst-completion`` is a group of snippets and commands to facilitate writing restructuredText
-with SublimeText. 
+with SublimeText.
 
 Demo
 ----
+
+(image links to a Youtube video)
 
 .. image:: http://img.youtube.com/vi/otM_tjIi_vY/0.jpg
    :target: http://www.youtube.com/watch?v=otM_tjIi_vY
@@ -32,9 +34,8 @@ Otherwise you can:
 - Or download the `.zip`_ file and unzip it into your ST2/ST3 packages
   directory.
 
-Optionally, to use the `preview rendering`_ feature, you need to install at least one of
-Pandoc_, docutils_ or rst2pdf_ and they should be accesibles in your ``PATH``.
-In debian/ubuntu you can install them via ``apt-get``::
+Optionally, to use the `Render preview`_ feature, you need to install at least one of
+Pandoc_, docutils_ or rst2pdf_ and they should be accessible in your ``PATH``. (Copy the ``command_path`` variable from the package's settings file to your user settings file and add paths to your local installations to it.)  In debian/ubuntu you can install them via ``apt-get``::
 
     $ sudo apt-get install pandoc docutils rst2pdf
 
@@ -52,7 +53,7 @@ using tab.
 +------------------------+------------------------------------+----------------------------+
 | shortcut               | result                             | key binding                |
 +========================+====================================+============================+
-| ``h1``                 | Header level 1                     | see `Header completion`_   |
+| ``h1``                 | Header level 1                     | see `Headers`_             |
 +------------------------+------------------------------------+----------------------------+
 | ``h2``                 | Header level 2                     |                            |
 +------------------------+------------------------------------+----------------------------+
@@ -120,10 +121,6 @@ Also standard admonitions are expanded:
 | ``warning``   |
 +---------------+
 
-
-
-.. _preview rendering:
-
 Render preview
 --------------
 
@@ -142,9 +139,6 @@ Each time you select a ``format + tool`` option, it turns the default the follow
 
     The original code is from the `SublimePandoc <https://github.com/jclement/SublimePandoc>`_
     project.
-
-
-.. _tables:
 
 
 Magic Tables
@@ -247,7 +241,7 @@ Move the cursor to the cell ``12`` and press ``ctrl+t, down``. You'll get this::
    `Vincent Driessen's vim-rst-tables <https://github.com/nvie/vim-rst-tables>`_ :
 
 .. note::
-   
+
    The original code of `wcwidth <https://github.com/jquast/wcwidth>`_ was taken to solve alignment issue with CJK characters.
 
 Smart lists
