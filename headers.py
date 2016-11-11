@@ -163,6 +163,7 @@ class RstHeaderTree(object):
         title = title.rstrip()
         title_lenght = len(title.lstrip())
         indent_lenght = len(title) - title_lenght
+        title_lenght += len(''.join(re.compile(u"[\u4e00-\u9fa5]+").findall(title)))
         strike = adornment[0] * (title_lenght + indent_lenght * 2)
         if force_overline or len(adornment) == 2:
             result = strike + '\n' + title + '\n' + strike + '\n'
