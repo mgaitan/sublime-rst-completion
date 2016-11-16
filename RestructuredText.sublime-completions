@@ -29,6 +29,7 @@
         { "trigger": "fig", "contents": ".. figure:: ${1:path}\n\n   ${2:caption}\n\n$0" },
 
 		{ "trigger": "table", "contents": "${1/./=/g}\n${1:heading}\n${1/./=/g}\n${2:row}\n${3:row}\n${4:row}\n${1/./=/g}" },
+		{ "trigger": "simpletable", "contents": "${1/./=/g}\n${1:heading}\n${1/./=/g}\n${2:row}\n${3:row}\n${4:row}\n${1/./=/g}" },
 
 		{ "trigger": "link", "contents": "`${1:link_variable_name}`_ $0\n\n.. _${1}: ${2:http://}"},
 		{ "trigger": "linki", "contents": "`${1:link_variable_name} <${2:http://}>`_ $0"},

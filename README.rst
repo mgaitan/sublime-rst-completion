@@ -146,6 +146,9 @@ Magic Tables
 
 There is a particular *magic* expansion for tables. Here is how it works:
 
+Grid table
+++++++++++
+
 1. Create some kind of table outline, separating column with two or more spaces::
 
 
@@ -243,6 +246,64 @@ Move the cursor to the cell ``12`` and press ``ctrl+t, down``. You'll get this::
 .. note::
 
    The original code of `wcwidth <https://github.com/jquast/wcwidth>`_ was taken to solve alignment issue with CJK characters.
+
+Simple table
+++++++++++++
+
+Instead of tables above, a simpler style table is also supported. Here is how it works:
+
+1. Create some kind of table outline, separating column with two or more spaces::
+
+
+      This is paragraph text *before* the table.
+
+      Column 1  Column 2
+      Foo  Put two (or more) spaces as a field separator.
+      Bar  Even very very long lines like these are fine, as long as you do not put in line endings here.
+
+      This is paragraph text *after* the table.
+
+2. Put your cursor somewhere in the content to convert as table.
+3. Press ``ctrl+t, s`` (Linux or Windows) or ``super+shift+t, s`` (Mac). The output will look
+   something like this::
+
+      This is paragraph text *before* the table.
+
+      ==========  ================================================================================================
+      Column 1    Column 2
+      ==========  ================================================================================================
+      Foo         Put two (or more) spaces as a field separator.
+      Bar         Even very very long lines like these are fine, as long as you do not put in line endings here.
+      ==========  ================================================================================================
+
+      This is paragraph text *after* the table.
+
+
+Now suppose you add some text in a cell::
+
+
+      ==========  ================================================================================================
+      Column 1    Column 2
+      ==========  ================================================================================================
+      Foo is longer now         Put two (or more) spaces as a field separator.
+      Bar         Even very very long lines like these are fine, as long as you do not put in line endings here.
+      ==========  ================================================================================================
+
+Press the same trigger: magically, the structure will be fixed::
+
+
+      ===================  ================================================================================================
+      Column 1             Column 2
+      ===================  ================================================================================================
+      Foo is longer now    Put two (or more) spaces as a field separator.
+      Bar                  Even very very long lines like these are fine, as long as you do not put in line endings here.
+      ===================  ================================================================================================
+
+
+.. note::
+
+   The original code of this feature was taken from
+   `Vincent Driessen's vim-rst-tables <https://github.com/nvie/vim-rst-tables>`_ :
 
 Smart lists
 -----------
