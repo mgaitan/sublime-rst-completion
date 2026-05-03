@@ -285,9 +285,58 @@ class SmartFoldingCommand(sublime_plugin.TextCommand):
             else:
                 self.view.fold(region)
         else:
-            for r in self.view.sel():
-                self.view.insert(edit, r.a, '\t')
-                self.view.show(r)
+            # -------------------------------------------------------------
+            # Important:  This command is ONLY bound to [shift+tab], not [tab].
+            # So in order to surgically insert the above behavior without
+            # affecting other behavior (like an unwanted suppressing of running
+            # `unindent` when user is editing reSTructuredText), this ELSE block
+            # must check a few more variables.  Namely:  3 things govern normal
+            # [shift+tab] behavior:
+            #
+            # A.  If multiple lines selected (text contains "\n"), run `unindent` command.
+            # B.  If text before cursor is zero or more tabs or spaces, run `unindent` command.
+            # C.  If `settings.shift_tab_unindent` == True, then run `unindent` command.
+            #
+            # Otherwise, when user is editing reSTructuredText files, tab gets
+            # inserted when it should be running `unindent` command.  These rules
+            # are shown in the default Sublime Text [shift+tab] key bindings.
+            # -------------------------------------------------------------
+            # Check for condition A.
+            # -------------------------------------------------------------
+            sel = self.view.sel()[0]
+            text = self.view.substr(sel)
+            if "\n" in text:
+                self.view.run_command('unindent')
+                return
+
+            # -------------------------------------------------------------
+            # Check for condition B.
+            # -------------------------------------------------------------
+            line_rgn = self.view.line(cursor_pos)
+            line_text = self.view.substr(line_rgn)
+            diff = cursor_pos - line_rgn.a
+            # `diff` guaranteed to be >= 0.
+            if diff == 0:
+                # At beginning of line, Sublime Text runs `unindent` so we will too.
+                self.view.run_command('unindent')
+                return
+            else:
+                left_of_cursor_text = line_text[0:diff]
+                if re.match(r'^[\t ]+$', left_of_cursor_text):
+                    # Only tabs or spaces to the left of cursor.
+                    self.view.run_command('unindent')
+                    return
+
+            # -------------------------------------------------------------
+            # Check for condition C.
+            # -------------------------------------------------------------
+            if self.view.settings().get('shift_tab_unindent'):
+                self.view.run_command('unindent')
+            else:
+                # Finally, here it is correct to insert a '\t'
+                for r in reversed(self.view.sel()):
+                    self.view.insert(edit, r.a, '\t')
+                    self.view.show(r)
 
 
 class SmartHeaderCommand(BaseBlockCommand):
