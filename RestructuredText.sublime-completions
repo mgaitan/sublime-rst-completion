@@ -37,6 +37,11 @@
 
         { "trigger": "quote", "contents": ".. epigraph::\n\n   ${1:quote}\n\n   -- ${2:author}\n\n$0" },
 
+        { "trigger": "math", "contents": ".. math::\n\n    ${1:equation}$0\n\n" },
+
+        { "trigger": "hl", "contents": "\n--------\n\n$0" },
+
+
         // admonitions
         { "trigger": "attention", "contents": ".. attention:: ${1:note}\n\n$0" },
         { "trigger": "caution", "contents": ".. caution:: ${1:note}\n\n$0" },
